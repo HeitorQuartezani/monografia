@@ -1,0 +1,422 @@
+[
+  {
+    "category": "FATUAL",
+    "question": "Qual o percentual de reajuste aplicado aos vencimentos dos cargos administrativos do Ministério Público do Estado do Espírito Santo em 2024?",
+    "ground_truth_answer": "As tabelas de vencimentos dos cargos administrativos do Ministério Público do Estado do Espírito Santo, tanto efetivos quanto em comissão, foram reajustadas em 4,5% a partir de 1º de maio de 2024.",
+    "evidence_quote": "Art. 1º Ficam reajustadas em 4,5% (quatro e meio por cento), a partir de 1º de maio de 2024, as tabelas de vencimentos dos cargos administrativos do Ministério Público do Estado do Espírito Santo - MPES, efetivos e em comissão.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/LEIEST121102024.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Em que data foi realizada a eleição para os membros do Conselho Superior do Ministério Público para o mandato de 2023/2024?",
+    "ground_truth_answer": "A eleição para os conselheiros do Conselho Superior do Ministério Público para o mandato de 2023/2024 foi realizada no dia 28 de abril de 2023, das 9 horas às 17 horas.",
+    "evidence_quote": "Art. 2º A eleição das(os) Conselheiras(os) realizar-se-á no dia 28.04.2023, sexta-feira, das 9 horas às 17 horas, mediante voto secreto, plurinominal e pessoal de todas(os) as(os) Procuradoras(es) de Justiça e Promotoras(es) de Justiça em atividade, pelo sistema informatizado de voto à distância, ou outro meio disponibilizado pela Instituição.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESPGJ022023.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual é o valor da bolsa de complementação educacional para estagiários de pós-graduação?",
+    "ground_truth_answer": "O valor da bolsa de complementação educacional para estagiários de pós-graduação é de R$ 1.800,00.",
+    "evidence_quote": "BOLSA DE COMPLEMENTAÇÃO EDUCACIONAL: R$ 1.800,00",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual o valor da bolsa de complementação educacional para estagiários de graduação em Direito?",
+    "ground_truth_answer": "Conforme o edital de 2022, o valor da bolsa de complementação educacional para estagiários de graduação em Direito é de R$ 800,00.",
+    "evidence_quote": "Bolsa de complementação educacional: R$ 800,00",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA202022.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual é o período de vigência do Planejamento Estratégico do Ministério Público do Espírito Santo?",
+    "ground_truth_answer": "O Planejamento Estratégico do Ministério Público do Estado do Espírito Santo (MPES) tem vigência para o período de 2024 a 2032.",
+    "evidence_quote": "Art. 1º Instituir o Planejamento Estratégico do Ministério Público do Estado do Espírito Santo - MPES 2024-2032.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3622024.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "A quem compete resolver conflitos de atribuições entre membros do Ministério Público?",
+    "ground_truth_answer": "De acordo com a Súmula CSMP nº 002/2017, compete privativamente ao Procurador-Geral de Justiça dirimir conflitos de atribuições entre membros do Ministério Público, e sua decisão é irrecorrível.",
+    "evidence_quote": "Compete privativamente ao Procurador-Geral de Justiça dirimir conflitos de atribuições entre membros do Ministério Público, sendo irrecorrível a sua decisão.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCON0332017.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual é o prazo regulamentar para a conclusão de um inquérito civil?",
+    "ground_truth_answer": "O inquérito civil deve ser concluído no prazo de um ano, podendo ser prorrogado pelo mesmo período quantas vezes forem necessárias, através de uma decisão fundamentada pelo seu presidente, que deve ser comunicada ao órgão superior competente.",
+    "evidence_quote": "Art. 9º O inquérito civil deverá ser concluído no prazo de um ano, prorrogável pelo mesmo prazo e quantas vezes forem necessárias, por decisão fundamentada de seu presidente, à vista da imprescindibilidade da realização ou conclusão de diligências, dando-se ciência ao Conselho Superior do Ministério Público, à Câmara de Coordenação e Revisão ou à Procuradoria Federal dos Direitos do Cidadão.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCN232007.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual o prazo máximo de suspensão que pode ser aplicado a um estagiário como penalidade?",
+    "ground_truth_answer": "A penalidade de suspensão que pode ser aplicada a um estagiário em um processo disciplinar administrativo não pode ser superior a 30 dias corridos.",
+    "evidence_quote": "Art. 7º O processo disciplinar administrativo poderá gerar a aplicação das seguintes penalidades: II - suspensão por prazo não superior a 30 (trinta) dias corridos;",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR54452019.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual o prazo para que interessados apresentem oposição à eliminação de documentos publicada em edital?",
+    "ground_truth_answer": "Os interessados têm o prazo de 30 dias, contados a partir da data de publicação do edital, para apresentar oposição por escrito e devidamente fundamentada contra a eliminação de documentos.",
+    "evidence_quote": "Dentro do prazo de 30 (trinta) dias, contados da data de publicação deste Edital, os interessados que tiverem alguma oposição deverão apresentá-la por escrito, devidamente fundamentada, ou ainda solicitar a guarda de seus próprios documentos, por meio de requerimento, no prazo citado...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDCIENCIA212024.htm"
+  },
+  {
+    "category": "FATUAL",
+    "question": "Qual o período do mandato da Promotora de Justiça Cláudia Regina dos Santos Albuquerque Garcia no Comitê de Prevenção e Enfrentamento dos Assédios?",
+    "ground_truth_answer": "A Promotora de Justiça Cláudia Regina dos Santos Albuquerque Garcia foi designada para atuar no Comitê de Prevenção e Enfrentamento dos Assédios Moral e Sexual no âmbito do MPES pelo período de 2 de maio de 2024 a 1 de maio de 2026.",
+    "evidence_quote": "DESIGNAR, na forma do art. 10, inciso XIV, da Lei Complementar Estadual nº 95, de 28 de janeiro de 1997, a Promotora de Justiça, CLÁUDIA REGINA DOS SANTOS ALBUQUERQUE GARCIA, para atuar no Comitê de Prevenção e Enfrentamento dos Assédios Moral e Sexual no âmbito do Ministério Público do Estado do Espírito Santo - CPAM/MPES, na qualidade de representante da Administração Superior, no período de 02.05.2024 a 01.05.2026.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR4842024.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais são os principais objetivos estratégicos do MPES na perspectiva de resultados para a sociedade, conforme o planejamento institucional?",
+    "ground_truth_answer": "Os objetivos estratégicos do MPES para a sociedade, segundo o Planejamento Estratégico 2024-2032, são: defender os direitos humanos e de grupos vulneráveis; intensificar o combate à corrupção e ilícitos; estimular a eficiência na defesa dos consumidores; atuar proativamente contra a violência e na segurança pública; defender o acesso à saúde; assegurar o direito à educação inclusiva e equitativa; e fomentar a proteção e defesa do meio ambiente.",
+    "evidence_quote": "Perspectiva Resultados para a Sociedade\nObjetivo 1 Defender os direitos humanos, em especial, das crianças e dos adolescentes, das famílias, das pessoas idosas, das pessoas com deficiência, das mulheres vítimas de violência de gênero, e das demais pessoas e grupos em situação de vulnerabilidade social.\nObjetivo 2 Intensificar a prevenção e o combate à corrupção, à improbidade administrativa, à lavagem de dinheiro, à sonegação fiscal, aos crimes na administração pública, aos ilícitos eleitorais e às irregularidades nas entidades do terceiro setor.\nObjetivo 3 Estimular a eficiência do sistema de defesa das(os) consumidoras(es), assegurando o acesso à informação e a autonomia das pessoas para defesa de seus direitos.\nObjetivo 4 Atuar proativamente no combate a todas as formas de violência, em especial as oriundas de grupos organizados, no controle externo da atividade policial e no cumprimento da Lei de Execução Penal, visando à efetividade da segurança pública.\nObjetivo 5 Defender o acesso da população aos serviços de atenção à saúde.\nObjetivo 6 Assegurar o direito à educação, de forma inclusiva e equitativa, bem como a correta aplicação das verbas públicas, fortalecendo o controle social.\nObjetivo 7 Fomentar a proteção e a defesa do meio ambiente, sendo indutor dos poderes públicos e da sociedade na busca pela concretização das políticas públicas e pela reparação dos danos causados.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3622024.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Resuma as principais diretrizes estratégicas do MPES para a proteção do meio ambiente.",
+    "ground_truth_answer": "As diretrizes estratégicas para a proteção ambiental incluem o fortalecimento dos Comitês de Bacias Hidrográficas, ações de esgotamento sanitário, regularização ambiental (CAR e PRA), regularização de núcleos urbanos em área rural, educação ambiental, criação de unidades de conservação, prevenção de desastres naturais, proteção à fauna, padronização da valoração de danos ambientais, promoção de medidas de reparação por danos socioambientais e fomento à implementação das Políticas de Resíduos Sólidos.",
+    "evidence_quote": "Fortalecimento dos Comitês de Bacias Hidrográficas; Esgotamento sanitário; Cobertura Florestal - Cadastro Ambiental Rural (CAR) e Programa de Regularização Ambiental (PRA); Regularização dos Núcleos Urbanos (irregulares) em área rural; Educação Ambiental; Unidades de Conservação; Prevenção de desastres naturais - mudanças climáticas; Proteção a fauna (Programa em defesa da vida animal doméstica); Sistematizar, referenciar e padronizar o processo de valoração monetária dos danos ambientais no MPES, dando robustez à reparação dos danos ambientais; Promover medidas de reparação por danos socioambientais e socioeconômicas; Fomento à implementação das Políticas Nacional e Estadual de Resíduos Sólidos.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3622024.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais foram as principais mudanças nas atribuições das Promotorias de Justiça Cível de Guarapari?",
+    "ground_truth_answer": "As principais mudanças foram: o 3º Promotor de Justiça passou a ter atribuição na Vara da Infância e da Juventude; o 5º Promotor de Justiça recebeu a atribuição extrajudicial em Registros Públicos; e a atribuição em ações de casamento irregular foi redistribuída do 5º Promotor para o 3º e 4º Promotores de Justiça.",
+    "evidence_quote": "Art. 2º Incluir no cargo 3º Promotor de Justiça Cível de Guarapari, expressamente, a atribuição judicial junto à Vara Especializada da Infância e da Juventude de Guarapari. Art. 3º Incluir no cargo de 5º Promotor de Justiça Cível de Guarapari, expressamente, a atribuição extrajudicial em matéria de Registros Públicos. Art. 4º Redistribuir, do 5º Promotor de Justiça aos 3º e 4º Promotores de Justiça Cíveis de Guarapari, a atribuição em ações decorrentes de casamento irregular.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL0072022.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais são os requisitos para um candidato ser contratado como estagiário de pós-graduação em Direito?",
+    "ground_truth_answer": "Para ser contratado como estagiário de pós-graduação em Direito, o candidato deve ser bacharel em Direito e estar cursando uma pós-graduação na mesma área, com uma carga horária mínima de 360 horas.",
+    "evidence_quote": "Ser bacharel em Direito e estar cursando pós-graduação nessa área, com carga horária mínima de 360 horas.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais são os possíveis resultados de um Procedimento Administrativo Sumário de Estagiário (Pase)?",
+    "ground_truth_answer": "Um Procedimento Administrativo Sumário de Estagiário (Pase) pode resultar em arquivamento do expediente, absolvição do estagiário, ou aplicação de penalidades, que incluem advertência, suspensão ou desligamento. Além disso, pode haver o encaminhamento dos autos para apurações de improbidade administrativa, reparação civil ou persecução penal.",
+    "evidence_quote": "§ 3º O processo disciplinar administrativo pode resultar em: I - arquivamento do expediente; II - absolvição; III - aplicação de penalidade ao estagiário, nos termos do art. 7º desta Portaria, bem como eventual encaminhamento dos autos às Promotorias de Justiça responsáveis por eventuais apurações de improbidade administrativa, reparação civil ou persecução penal.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR54452019.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais títulos são considerados para pontuação no concurso de ingresso na carreira do Ministério Público?",
+    "ground_truth_answer": "São considerados títulos: exercício de cargos no Ministério Público, Magistratura, Defensoria Pública e Advocacia Pública; aprovação em concursos para essas carreiras; títulos de doutorado, mestrado e especialização em Direito; docência em ensino superior; exercício de cargos técnico-jurídicos; aprovação em concursos para cargos de bacharel em Direito; conclusão de cursos de preparação de Escolas Superiores do MP ou da Magistratura; publicação de livros e trabalhos jurídicos; e aprovação no Exame de Ordem.",
+    "evidence_quote": "§ 3º Serão considerados títulos: a) exercício de cargo da carreira do Ministério Público, da Magistratura, da Defensoria Pública e da Advocacia Pública; b) aprovação em concurso público para a investidura nos cargos das carreiras do Ministério Público, da Magistratura, da Defensoria Pública e da Advocacia Pública; c) doutorado na área de Direito; d) mestrado na área de Direito; e) especialização (pós-graduação) na área de Direito; f) docência, mediante concurso público de provas e títulos, em disciplinas da área de conhecimento do Direito, ou em curso de pós-graduação em Direito, em instituição de ensino superior oficial ou reconhecida; g) docência, em disciplinas da área de conhecimento do Direito, ou em curso de pós-graduação em Direito, em instituição de ensino superior oficial ou reconhecida; h) exercício de cargo ou função-técnico jurídica, em caráter efetivo privativo de bacharel em Direito, em órgãos da Administração Pública federal, estadual ou municipal ou na iniciativa privada; i) aprovação em concurso público para a investidura em cargos privativos de bacharel em Direito, em órgãos da Administração Pública federal, estadual ou municipal ou na iniciativa privada; j) conclusão, com aproveitamento, de cursos de preparação à carreira do Ministério Público promovidos por Escola Superior do Ministério Público; k) conclusão, com aproveitamento, de cursos de preparação à carreira da Magistratura, promovidos por Escola Superior da Magistratura; l) edição de livro jurídico e publicação de trabalho jurídico de autoria individual ou em co-autoria comprovados, em revista especializada de circulação internacional, nacional, regional ou local; m) aprovação em Exame de Ordem.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCON082010.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Resuma os principais objetivos do Gabinete de Mudanças Climáticas (Gabclima) do MPES.",
+    "ground_truth_answer": "Os principais objetivos do Gabclima são: atuar para reduzir os impactos das mudanças climáticas, reforçar o compromisso do MP com uma sociedade resiliente e sustentável, apoiar atividades que reduzam emissões de gases de efeito estufa, promover cooperação interinstitucional para ações de mitigação e adaptação, e disseminar informações e conscientização pública sobre o tema.",
+    "evidence_quote": "Art. 2º O Gabclima tem como principais objetivos: I - atuar, em benefício das presentes e futuras gerações, para a redução dos impactos decorrentes das mudanças do sistema climático; II - reforçar o compromisso do Ministério Público na construção de uma sociedade mais resiliente e sustentável; III - apoiar e fomentar atividades que efetivamente reduzam as emissões ou promovam as remoções de gases de efeito estufa; IV - promover a cooperação interinstitucional para a implementação de ações de mitigação e adaptação, incluindo pesquisas, observação sistemática e intercâmbio de informações; V - disseminar informações, educação, capacitação e conscientização pública sobre mudança do clima, prevenção e consequências.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR5932025.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais são as principais competências do Escritório de Proteção de Dados (Epdados) do MPES?",
+    "ground_truth_answer": "As competências do Epdados incluem: elaborar e revisar o Plano Diretor de Proteção de Dados; planejar e garantir a aplicação da LGPD; prestar apoio a órgãos de execução; orientar unidades sobre tratamento de dados; propor treinamentos; monitorar a Política Nacional de Proteção de Dados; propor melhorias em normativas e fluxos; promover a cultura de privacidade; implementar procedimentos de coleta e armazenamento de dados; atuar em incidentes de segurança; e elaborar o plano de resposta a incidentes.",
+    "evidence_quote": "Art. 3º Compete ao Epdados: I - elaborar e revisar o Plano Diretor de Proteção de Dados Pessoais; II - planejar as atividades destinadas a garantir o direito à privacidade dos dados pessoais no âmbito institucional [...]; III - prestar apoio aos órgãos de execução [...]; V - orientar as unidades organizacionais da instituição que tratam dados pessoais [...]; VI - propor ao Centro de Estudos e Aperfeiçoamento Funcional - Ceaf treinamentos e capacitações [...]; VII - fomentar e acompanhar as ações voltadas ao monitoramento permanente da Política Nacional de Proteção de Dados Pessoais [...]; VIII - propor a elaboração ou o aperfeiçoamento de normativas, fluxos e documentos congêneres [...]; IX - promover a cultura da privacidade e da proteção de dados pessoais na instituição; X - implementar procedimentos para coleta e armazenamento de dados pessoais [...]; XII - atuar nas situações que envolvem risco, dano ou incidente de segurança com dados pessoais [...]; XIII - elaborar e manter atualizado o plano de resposta a incidente de segurança com dados pessoais.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR8802024.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Como ficou a distribuição de atribuições judiciais e extrajudiciais entre o 1º e o 2º Promotor de Justiça junto à Auditoria Militar de Vitória?",
+    "ground_truth_answer": "As atribuições de ambos os cargos tornaram-se idênticas. Judicialmente, ambos atuam perante a Vara Especializada da Auditoria Militar, com um rodízio semestral para a realização de audiências e julgamentos. Extrajudicialmente, ambos são responsáveis pelo controle externo da Polícia Militar e do Corpo de Bombeiros, incluindo a fiscalização de sindicâncias, inquéritos, visitas a unidades e presídios militares.",
+    "evidence_quote": "Art. 3º Acrescer à atribuição extrajudicial do 1º cargo, a atribuição extrajudicial do 2º cargo, bem como, acrescer à atribuição judicial do 2º cargo, a atribuição judicial do 1º cargo, a fim de restarem idênticas suas atribuições. Art. 4º Estabelecer rodízio semestral, ficando a realização de audiências e julgamentos a cargo de um dos membros a cada semestre, e, as inspeções em estabelecimentos militares, a cargo daquele membro que não estiver atuando nas audiências e julgamentos no semestre.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL202018.htm"
+  },
+  {
+    "category": "SÍNTESE",
+    "question": "Quais são os objetivos do Núcleo de Atendimento ao Superendividado (NAS)?",
+    "ground_truth_answer": "O NAS tem como objetivo principal auxiliar consumidores superendividados, oferecendo um serviço gratuito de prevenção e tratamento conciliatório pré-processual. Isso inclui orientar, promover a renegociação global de dívidas com os credores, garantir a conciliação e mediação de conflitos decorrentes do superendividamento, e outras medidas para proteger o consumidor e prevenir que a situação ocorra.",
+    "evidence_quote": "Art. 5º O NAS tem como objetivo auxiliar as(os) consumidoras(es) superendividadas(os), orientando e promovendo a renegociação global de suas dívidas com as(os) suas(seus) credoras(es), garantindo a conciliação e a mediação de conflitos oriundos do superendividamento, entre outras medidas de proteção da(o) consumidora(consumidor) pessoa natural e de prevenção ao superendividamento.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3632024.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Qual o procedimento para se inscrever na eleição para o Conselho Superior do Ministério Público?",
+    "ground_truth_answer": "O interessado deve inserir um requerimento de inscrição no Processo SEI específico (nº 19.11.0081.0009187/2023-07), dirigido ao Presidente da Comissão Eleitoral, dentro do prazo de cinco dias estipulado pela resolução.",
+    "evidence_quote": "§ 2º O requerimento de inscrição deverá ser inserido no Processo SEI nº 19.11.0081.0009187/2023-07 e dirigido ao Presidente da Comissão Eleitoral, no prazo de cinco dias.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESPGJ022023.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Como um candidato deve realizar sua inscrição para o processo de seleção de estagiários de pós-graduação?",
+    "ground_truth_answer": "As inscrições são gratuitas e devem ser realizadas online, através do preenchimento de um formulário em um link específico (https://forms.gle/41zntD4JvAm4jpkN7), dentro do período estipulado de 17 de fevereiro a 7 de março de 2025. O candidato precisa ter uma conta Google para acessar e preencher o formulário.",
+    "evidence_quote": "2.1 As inscrições são gratuitas e deverão ser realizadas no período de 17 de fevereiro a 7 de março de 2025, no link https://forms.gle/41zntD4JvAm4jpkN7\n2.2 Para realizar a inscrição, o candidato deverá ter uma conta no Google.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Descreva as fases do Procedimento Administrativo Sumário de Estagiário (Pase).",
+    "ground_truth_answer": "O Pase possui cinco fases simplificadas: 1) Instauração, que é a abertura do processo com a apresentação escrita dos fatos; 2) Instrução, para elucidação dos fatos com produção de provas e testemunhos; 3) Defesa, na qual o estagiário tem acesso aos autos para contestar e apresentar contraprovas; 4) Relatório, um documento síntese com a apuração e a proposta de medida ou decisão; e 5) Julgamento, que é a decisão final da autoridade competente sobre o caso.",
+    "evidence_quote": "Art. 6º O Pase por se tratar de processo sumário, tem seus procedimentos simplificados cumprindo as seguintes fases: I - Instauração: fase de abertura do Pase, com apresentação escrita dos fatos... II - Instrução: fase de elucidação dos fatos, com produção de provas... III - Defesa: fase em que o estagiário toma conhecimento dos documentos... IV - Relatório: documento síntese do que foi apurado no processo... V - Julgamento: é a fase de decisão, da autoridade competente...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR54452019.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Como um interessado pode solicitar a guarda de seus próprios documentos que estão prestes a ser eliminados pelo MPES?",
+    "ground_truth_answer": "Dentro do prazo de 30 dias a partir da publicação do edital de ciência de eliminação, o interessado deve apresentar um requerimento por escrito, devidamente fundamentado, solicitando a guarda dos documentos. O pedido deve ser dirigido à Comissão de Avaliação de Documentos e Memória.",
+    "evidence_quote": "Dentro do prazo de 30 (trinta) dias, contados da data de publicação deste Edital, os interessados que tiverem alguma oposição deverão apresentá-la por escrito, devidamente fundamentada, ou ainda solicitar a guarda de seus próprios documentos, por meio de requerimento, no prazo citado...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDCIENCIA042025.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Como deve proceder um membro do Ministério Público para arquivar um inquérito civil?",
+    "ground_truth_answer": "Após esgotar todas as diligências e se convencer da inexistência de fundamento para uma ação civil pública, o membro do Ministério Público deve promover o arquivamento de forma fundamentada. Em seguida, os autos do inquérito, junto com a promoção de arquivamento, devem ser remetidos ao órgão de revisão competente no prazo de três dias, após a ciência dos interessados.",
+    "evidence_quote": "Art. 10. Esgotadas todas as possibilidades de diligências, o membro do Ministério Público, caso se convença da inexistência de fundamento para a propositura de ação civil pública, promoverá, fundamentadamente, o arquivamento do inquérito civil ou do procedimento preparatório. § 1º Os autos do inquérito civil ou do procedimento preparatório, juntamente com a promoção de arquivamento, deverão ser remetidos ao órgão de revisão competente, no prazo de três dias, contado da comprovação da efetiva cientificação pessoal dos interessados...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCN232007.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Como um membro do Ministério Público deve proceder para solicitar um afastamento voluntário, como abono ou folga compensatória?",
+    "ground_truth_answer": "O pedido deve ser feito individualmente, com no mínimo 5 dias úteis de antecedência, através do preenchimento de um formulário específico no Sistema Eletrônico de Informações (Sei!). Este pedido é encaminhado à Procuradora-Geral de Justiça ou à autoridade delegada e deve ser instruído com uma declaração do requerente de que não incorre nas vedações legais para o afastamento.",
+    "evidence_quote": "Art. 13. O pedido de concessão de afastamento voluntário que não configure férias, tais como abono, trânsito e folga compensatória, entre outros, deve ser feito de forma individual, encaminhado à Procuradora-Geral de Justiça ou à autoridade por ela delegada, mediante o preenchimento de formulário específico constante do Sistema Eletrônico de Informações - Sei!, com antecedência mínima de 5 (cinco) dias úteis, instruído com declaração da(o) requerente de que não incorre nas vedações do § 1º.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR4252021.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Como um candidato pode apresentar recurso contra o resultado de uma seleção de estagiários?",
+    "ground_truth_answer": "O candidato pode apresentar recurso contra o enunciado das questões e o gabarito no prazo de 2 dias corridos após a realização da prova. Para isso, deve preencher um formulário online específico, cujo link é divulgado junto com o gabarito das provas no site do MPES.",
+    "evidence_quote": "9.1.2.1 O candidato terá o prazo de 2 (dois) dias corridos, a contar do dia seguinte ao da realização da prova, para apresentar recurso contra o enunciado das questões e suas respectivas respostas, conforme gabarito que será divulgado no endereço eletrônico do MPES... 9.1.2.2 Para apresentação de recurso, o candidato deve preencher o formulário disponível no link que será divulgado junto com o gabarito das provas.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Quais são os passos para a realização de uma audiência pública pelo Ministério Público?",
+    "ground_truth_answer": "Primeiro, deve-se expedir um edital de convocação contendo data, horário, local, objetivo e formas de participação. Em seguida, deve-se dar ampla publicidade ao edital, com no mínimo 3 dias úteis de antecedência. Após a audiência, deve ser lavrada uma ata circunstanciada em até 30 dias, que será publicada no site do MPES. Ao final dos trabalhos, o membro responsável produz um relatório com as providências a serem tomadas.",
+    "evidence_quote": "Art. 3º As audiências públicas serão precedidas da expedição de edital de convocação... Art. 4º Ao edital de convocação será dada a publicidade possível... com antecedência mínima de 3 (três) dias úteis... Art. 5º Da audiência será lavrada ata circunstanciada, no prazo de 30 (trinta) dias... Art. 7º Ao final dos trabalhos que motivaram a audiência pública, o representante do Ministério Público que presidiu a referida audiência deve produzir um relatório...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL0092017.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Qual o procedimento para submeter uma proposta de livro para a 'II Coleção do Avesso ao Direito'?",
+    "ground_truth_answer": "Os proponentes devem enviar um e-mail para ceafpesquisas@mpes.mp.br, com arquivos em PDF contendo o nome completo e contato, vínculo institucional, título do livro, minicurrículo e o texto integral da obra, que deve ter no mínimo 100 páginas e seguir as normas da ABNT.",
+    "evidence_quote": "2.1 A submissão será realizada em caráter permanente e os proponentes deverão enviar para o e-mail ceafpesquisas@mpes.mp.br, em arquivos anexados em PDF, o seguinte conteúdo para avaliação da Coordenação da Coleção: I- nome completo e dados para contato (e-mail e telefone); II - vínculo institucional; III - título do livro pretendido; IV - minicurrículo do proponente... V - Texto integral do livro conforme as especificações da alínea 2.2.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDPGJ112024.htm"
+  },
+  {
+    "category": "PROCEDIMENTAL",
+    "question": "Como funciona o processo seletivo para prestador de serviço voluntário na Promotoria de Justiça de Atílio Vivácqua?",
+    "ground_truth_answer": "O processo de seleção é composto por duas fases eliminatórias. A primeira é a análise da documentação apresentada no ato da inscrição pela Coordenação de Recursos Humanos. A segunda fase é uma entrevista presencial com o responsável pela unidade, que é agendada após a aprovação na primeira fase.",
+    "evidence_quote": "Art. 3º A seleção dos voluntários é compreendida por duas fases eliminatórias, quais sejam: I - análise pela Coordenação de Recursos Humanos da documentação apresentada; II - entrevista presencial com o responsável pela unidade organizacional em que se dará a prestação do serviço, agendada pelo Ministério Público do Estado do Espírito Santo após análise e aprovação dos documentos.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR39312024.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Qual o valor exato do auxílio-transporte para estagiários de pós-graduação?",
+    "ground_truth_answer": "O valor do auxílio-transporte para estagiários de pós-graduação é de R$ 250,00.",
+    "evidence_quote": "AUXÍLIO-TRANSPORTE: R$ 250,00",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "A partir de qual data o reajuste salarial dos servidores administrativos do MPES de 2024 passou a ter efeitos?",
+    "ground_truth_answer": "O reajuste salarial teve efeitos retroativos a 1º de maio de 2024.",
+    "evidence_quote": "Art. 3º Esta Lei entra em vigor na data de sua publicação, com efeitos retroativos a 1º de maio de 2024.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/LEIEST121102024.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Qual foi o prazo concedido à Coordenação de Informática para adequar o sistema Gampes após a redistribuição de atribuições em Guarapari?",
+    "ground_truth_answer": "A Coordenação de Informática teve um prazo de 30 dias, a contar do início da vigência da Resolução, para realizar a adequação do sistema Gampes.",
+    "evidence_quote": "Art. 6º A Coordenação de Informática terá 30 (trinta) dias, a contar do início da vigência desta Resolução, para adequação do Gampes.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL0072022.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Qual é a penalidade específica para o membro do Ministério Público que não justificar sua ausência na votação para o Conselho Superior?",
+    "ground_truth_answer": "O membro do Ministério Público que tiver sua falta considerada injustificada pelo Conselho Superior do Ministério Público perderá um dia de vencimento.",
+    "evidence_quote": "§ 3º Perderá um dia de vencimento a(o) membra(o) do Ministério Público que tiver sua falta considerada injustificada pelo Conselho Superior do Ministério Público.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESPGJ022023.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Qual o valor do auxílio-transporte para os estagiários de graduação, segundo o edital de 2022?",
+    "ground_truth_answer": "O valor do auxílio-transporte para estagiários de graduação, conforme o edital de 2022, é de R$ 100,00.",
+    "evidence_quote": "Auxílio-transporte: R$ 100,00",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA202022.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "No processo seletivo de estágio para a Promotoria de Marechal Floriano, qual a pontuação atribuída a um certificado de pós-graduação da Escola Superior do Ministério Público (ESMP)?",
+    "ground_truth_answer": "No referido processo seletivo, um certificado de pós-graduação da ESMP recebe 2 pontos na avaliação de títulos.",
+    "evidence_quote": "Certificado de pós-graduação da ESMP** | 2",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA632024.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "O Gerente da Coordenação de Finanças tem competência delegada para autorizar o pagamento de qual imposto municipal específico?",
+    "ground_truth_answer": "O Gerente da Coordenação de Finanças tem competência delegada para autorizar a liquidação e o pagamento do Imposto Predial Territorial Urbano (IPTU).",
+    "evidence_quote": "Art. 1º Conferir e delegar ao Gerente da Coordenação de Finanças do Ministério Público do Estado do Espírito Santo a competência para autorizar a liquidação e o pagamento referentes a: II - Imposto Predial Territorial Urbano e taxas de coleta de lixo;",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR90812017.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Na reestruturação das Promotorias de Afonso Cláudio e Laranja da Terra, qual cargo foi especificamente destinado ao quadro de reserva?",
+    "ground_truth_answer": "O cargo de 1º Promotor de Justiça de Laranja da Terra foi destinado ao quadro de reserva.",
+    "evidence_quote": "§ 1º O cargo de 1º Promotor de Justiça de Laranja da Terra será destinado ao quadro de reserva e suas atribuições serão redistribuídas, de forma equânime, aos 1º e 2º Promotores de Justiça de Afonso Cláudio.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL102019.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Qual o valor em VRTEs que serve como parâmetro para a aplicação do princípio da insignificância em crimes tributários estaduais?",
+    "ground_truth_answer": "O valor de 5.000 VRTEs (Valor de Referência do Tesouro Estadual), fixado na Lei Estadual nº 7.727/2004, é admitido como parâmetro para o princípio da insignificância, desde que não haja reiteração da conduta.",
+    "evidence_quote": "Admite-se o valor fixado no art. 1º, inciso II da Lei Estadual nº 7.727/2004 (5.000 VRTEs), como parâmetro para a aplicação do princípio da insignificância dos crimes tributários estaduais, desde que ausente reiteração da conduta.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCON0212021.htm"
+  },
+  {
+    "category": "AGULHA NO PALHEIRO",
+    "question": "Qual a carga horária mínima que um curso de pós-graduação deve ter para que o aluno seja elegível ao programa de estágio?",
+    "ground_truth_answer": "Para ser elegível ao programa de estágio de pós-graduação, o curso deve ter uma carga horária mínima de 360 horas.",
+    "evidence_quote": "Ser bacharel em Direito e estar cursando pós-graduação nessa área, com carga horária mínima de 360 horas.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Existem vagas reservadas no processo seletivo para estagiários de pós-graduação?",
+    "ground_truth_answer": "Sim, o processo seletivo reserva vagas para pessoas com deficiência e para pessoas negras.",
+    "evidence_quote": "* Serão reservadas 10% (dez por cento) das vagas existentes para pessoas com deficiência... ** Serão reservadas 30% (trinta por cento) das vagas existentes para pessoas negras...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: Qual o percentual de vagas destinado a cada uma dessas reservas?",
+    "ground_truth_answer": "São reservadas 10% das vagas para pessoas com deficiência e 30% para pessoas negras.",
+    "evidence_quote": "* Serão reservadas 10% (dez por cento) das vagas existentes para pessoas com deficiência... ** Serão reservadas 30% (trinta por cento) das vagas existentes para pessoas negras...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA112025.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Qual é o primeiro objetivo estratégico do MPES na perspectiva de resultados para a sociedade?",
+    "ground_truth_answer": "O primeiro objetivo estratégico é defender os direitos humanos, com especial atenção a crianças, adolescentes, famílias, idosos, pessoas com deficiência, mulheres vítimas de violência de gênero e outros grupos em situação de vulnerabilidade social.",
+    "evidence_quote": "Objetivo 1 Defender os direitos humanos, em especial, das crianças e dos adolescentes, das famílias, das pessoas idosas, das pessoas com deficiência, das mulheres vítimas de violência de gênero, e das demais pessoas e grupos em situação de vulnerabilidade social.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3622024.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: E quais são as diretrizes para alcançar esse objetivo no que tange à infância e adolescência?",
+    "ground_truth_answer": "As diretrizes incluem a implementação de ações para o enfrentamento da violência contra crianças e adolescentes, a estruturação de Conselhos Tutelares e serviços de acolhimento, a formação de redes de defesa de direitos, a implementação da escuta especializada e o monitoramento da execução de medidas socioeducativas.",
+    "evidence_quote": "Implementação de ações para o enfrentamento das violências contra crianças e adolescentes; Estruturação e adequação dos Conselhos Tutelares nos municípios; Estruturação e adequação dos serviços de acolhimento institucional e familiar; Formação da rede de defesa de direitos das crianças e das(os) adolescentes; Implementação da escuta especializada nos municípios; Monitoramento da execução das medidas socioeducativas em meio aberto;",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3622024.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Quem compõe a comissão eleitoral para a escolha do Conselho Superior do Ministério Público?",
+    "ground_truth_answer": "A comissão eleitoral é composta pelos Procuradores de Justiça GUSTAVO MODENESI MARTINS DA CUNHA, HUMBERTO ALEXANDRE CAMPOS RAMOS e pela Procuradora de Justiça MARIA BEATRIZ RENOLDI MURAD VERVLOET.",
+    "evidence_quote": "Art. 1º Fica criada Comissão Eleitoral composta pelos Excelentíssimos Procuradores de Justiça GUSTAVO MODENESI MARTINS DA CUNHA, HUMBERTO ALEXANDRE CAMPOS RAMOS e pela Procuradora de Justiça MARIA BEATRIZ RENOLDI MURAD VERVLOET...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESPGJ022023.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: E quem preside essa comissão?",
+    "ground_truth_answer": "A comissão é presidida pelo primeiro membro mencionado, o Procurador de Justiça GUSTAVO MODENESI MARTINS DA CUNHA.",
+    "evidence_quote": "...para, sob a presidência do primeiro, coordenar todo o processo eleitoral...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESPGJ022023.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Qual é o objetivo do Núcleo de Atendimento ao Superendividado (NAS)?",
+    "ground_truth_answer": "O objetivo do NAS é auxiliar consumidores superendividados, orientando e promovendo a renegociação global de suas dívidas com os credores, garantindo a conciliação e a mediação de conflitos de forma gratuita e pré-processual.",
+    "evidence_quote": "Art. 5º O NAS tem como objetivo auxiliar as(os) consumidoras(es) superendividadas(os), orientando e promovendo a renegociação global de suas dívidas com as(os) suas(seus) credoras(es), garantindo a conciliação e a mediação de conflitos oriundos do superendividamento...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3632024.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: Em que situações as dívidas de um consumidor não são tratadas por este núcleo?",
+    "ground_truth_answer": "O núcleo não trata de dívidas contraídas mediante fraude ou má-fé, de contratos celebrados com o propósito de não pagar, ou decorrentes da aquisição de produtos ou serviços de luxo de alto valor.",
+    "evidence_quote": "§ 2º O disposto neste artigo não se aplica à(ao) consumidora(consumidor) cuja dívida tenha sido contraída mediante fraude ou má-fé, seja oriunda de contrato celebrado dolosamente com o propósito de não realizar o pagamento ou decorrente de aquisição ou contratação de produto ou serviço de luxo de alto valor.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR3632024.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Qual a regra de rodízio estabelecida para a Promotoria de Justiça Junto à Auditoria Militar?",
+    "ground_truth_answer": "Foi estabelecido um rodízio semestral, onde a realização de audiências e julgamentos fica a cargo de um dos membros a cada semestre.",
+    "evidence_quote": "Art. 4º Estabelecer rodízio semestral, ficando a realização de audiências e julgamentos a cargo de um dos membros a cada semestre...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL202018.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: E qual atividade fica a cargo do membro que não está atuando nas audiências e julgamentos no semestre?",
+    "ground_truth_answer": "O membro que não está responsável pelas audiências e julgamentos no semestre fica encarregado das inspeções em estabelecimentos militares.",
+    "evidence_quote": "...e, as inspeções em estabelecimentos militares, a cargo daquele membro que não estiver atuando nas audiências e julgamentos no semestre.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCOL202018.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Qual o valor da bolsa para estagiários de graduação?",
+    "ground_truth_answer": "De acordo com o edital de 2022, o valor da bolsa de complementação educacional é de R$ 800,00.",
+    "evidence_quote": "Bolsa de complementação educacional R$ 800,00",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA212022.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: E qual a carga horária semanal para esse estágio?",
+    "ground_truth_answer": "A carga horária é de 4 horas diárias, totalizando 20 horas semanais.",
+    "evidence_quote": "Carga horária 4 (quatro) horas diárias/20 (vinte) horas semanais",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/EDSPGA212022.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Quais são as penalidades que podem ser aplicadas a um estagiário em um Processo Administrativo Sumário?",
+    "ground_truth_answer": "As penalidades aplicáveis são: advertência, suspensão por até 30 dias corridos e desligamento.",
+    "evidence_quote": "Art. 7º O processo disciplinar administrativo poderá gerar a aplicação das seguintes penalidades: I - advertência; II - suspensão por prazo não superior a 30 (trinta) dias corridos; III - desligamento.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR54452019.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: O que acontece se, na apuração da irregularidade, for identificado o envolvimento de um membro ou servidor do Ministério Público?",
+    "ground_truth_answer": "Nesse caso, os autos do processo são encaminhados à Corregedoria-Geral do Ministério Público, se for um membro, ou ao Procurador-Geral de Justiça, se for um servidor.",
+    "evidence_quote": "Parágrafo único. Se na apuração das irregularidades for identificado o envolvimento de membro ou servidor do Ministério Público, os autos serão encaminhados à Corregedoria-Geral do Ministério Público do Estado do Espírito Santo ou ao Procurador-Geral de Justiça, respectivamente.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR54452019.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Qual é a finalidade do Escritório de Proteção de Dados (Epdados) do MPES?",
+    "ground_truth_answer": "A finalidade do Epdados é fomentar o desenvolvimento da Política Nacional de Proteção de Dados Pessoais dentro do MPES, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD) e outras normas pertinentes.",
+    "evidence_quote": "Art. 1º Instituir o Escritório de Proteção de Dados - Epdados do Ministério Público do Estado do Espírito Santo – MPES, unidade organizacional vinculada ao(à) Procurador(a)-Geral de Justiça, que tem como finalidade fomentar o desenvolvimento da Política Nacional de Proteção de Dados Pessoais [...] no âmbito institucional, observado o disposto na Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais - LGPD)...",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR8802024.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: Quem compõe e coordena esse escritório?",
+    "ground_truth_answer": "O Epdados é composto pelo Encarregado de Proteção de Dados Pessoais (DPO), que atua como coordenador, um membro subcoordenador e uma equipe técnico-jurídico-administrativa, todos designados pelo Procurador-Geral de Justiça.",
+    "evidence_quote": "Art. 2º O Epdados será composto pelo Encarregado de Proteção de Dados Pessoais (DPO), na qualidade de coordenador, por um membro subcoordenador e por uma equipe técnico-jurídico-administrativa, todos indicados e designados pelo(a) Procurador(a)-Geral de Justiça.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR8802024.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: De que formas um inquérito civil pode ser instaurado?",
+    "ground_truth_answer": "Um inquérito civil pode ser instaurado de ofício, em face de requerimento ou representação de qualquer pessoa ou autoridade, ou por designação de órgãos superiores do Ministério Público, como o Procurador-Geral de Justiça ou o Conselho Superior.",
+    "evidence_quote": "Art. 2º O inquérito civil poderá ser instaurado: I - de ofício; II - em face de requerimento ou representação formulada por qualquer pessoa ou comunicação de outro órgão do Ministério Público, ou qualquer autoridade...; III - por designação do Procurador-Geral de Justiça, do Conselho Superior do Ministério Público, Câmaras de Coordenação e Revisão e demais órgãos superiores da Instituição, nos casos cabíveis.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCN232007.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: E se o conhecimento do fato vier de uma manifestação anônima?",
+    "ground_truth_answer": "Mesmo que a manifestação seja anônima, ela não implicará ausência de providências, desde que forneça informações sobre o fato e seu provável autor, além da qualificação mínima que permita sua identificação e localização.",
+    "evidence_quote": "§ 3º O conhecimento por manifestação anônima, justificada, não implicará ausência de providências, desde que obedecidos os mesmos requisitos para as representações em geral, constantes no artigo 2º, inciso II, desta Resolução.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/RESCN232007.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q1: Qual a regra para a concessão de férias por período inferior a 10 dias para membros do MP?",
+    "ground_truth_answer": "Um pedido de férias com duração inferior a 10 dias consecutivos só será analisado se o membro interessado indicar outro membro para substituí-lo, sem que isso prejudique os períodos de substituição automática ordinária do substituto.",
+    "evidence_quote": "§ 1º Pedido de férias por período inferior a 10 (dez) dias consecutivos somente será conhecido se a(o) interessada(o) indicar membra(o) que a(o) substitua, sem prejuízo de que esta(e) cumpra os períodos de substituição automática ordinária a que se encontra submetida(o) nos termos da Portaria PGJ nº 7.039, de 22 de agosto de 2017.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR4252021.htm"
+  },
+  {
+    "category": "DEPENDENTE DE HISTÓRICO",
+    "question": "Q2: Em quais situações as férias de um membro podem ser suspensas?",
+    "ground_truth_answer": "As férias podem ser suspensas por decisão da Procuradora-Geral de Justiça, por conveniência e oportunidade, para manter a regularidade das atividades, ou no caso de superveniência de licenças previstas na Lei Complementar Estadual nº 95/1997, como licença médica.",
+    "evidence_quote": "§ 2º A Procuradora-Geral de Justiça, pautando-se pela conveniência e oportunidade, visando manter a regularidade das atividades ministeriais, poderá indeferir, interromper ou suspender as férias, convocando a(o) membra(o) para reassumir imediatamente o exercício do cargo. § 3º As férias serão suspensas no caso da superveniência de licença prevista no art. 93 da Lei Complementar Estadual nº 95, de 28 de janeiro de 1997.",
+    "source": "https://mpes.legislacaocompilada.com.br/Arquivo/Documents/legislacao/html/PORTAR4252021.htm"
+  }
+]
