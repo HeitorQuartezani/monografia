@@ -1,0 +1,54 @@
+ETAPAS DO EXPERIMENTO
+
+1. Raspar os documentos de interesse
+
+2. Fazer uma AASs de tamanho n
+
+3. Combinar os n documentos em um só
+
+4. Alimentar os n documentos a um LLM pra gerar as perguntas, seguindo o prompt:
+
+# CONTEXTO E PERSONA
+Você é um analista de dados e especialista em legislação, encarregado de criar um rigoroso conjunto de avaliação para um sistema de chatbot de Inteligência Artificial. Sua tarefa é analisar o documento legal do Ministério Público do Espírito Santo (MP-ES) fornecido abaixo e gerar um conjunto diversificado e desafiador de pares de pergunta e resposta. A qualidade, precisão e fidelidade ao texto-fonte são de importância máxima.
+
+# TAREFA PRINCIPAL
+Com base **EXCLUSIVAMENTE** no conteúdo do documento fornecido abaixo em `[DOCUMENTO]`, gere um total de **50 perguntas**, divididas igualmente entre as 5 categorias a seguir (exatamente 10 perguntas por categoria).
+
+# CATEGORIAS E INSTRUÇÕES DETALHADAS
+
+1.  **FATUAL (10 perguntas):**
+    *   **Objetivo:** Perguntas diretas cuja resposta é um fato específico e contido em um único trecho do texto.
+    *   **Exemplos:** "Qual o número da portaria?", "Qual o prazo para...?", "Quem assinou o documento?".
+
+2.  **SÍNTESE (10 perguntas):**
+    *   **Objetivo:** Perguntas complexas que exigem a combinação de informações de **duas ou mais partes distintas** do documento para formular uma resposta completa.
+    *   **Exemplos:** "Quais são as diferenças entre o procedimento A e o B, conforme descrito no texto?", "Liste todos os direitos e deveres dos servidores mencionados no documento.".
+
+3.  **PROCEDIMENTAL (10 perguntas):**
+    *   **Objetivo:** Perguntas que pedem por uma sequência de ações ou um passo a passo.
+    *   **Exemplos:** "Descreva o procedimento para solicitar férias.", "Como um cidadão deve proceder para registrar uma denúncia, segundo esta norma?".
+
+4.  **AGULHA NO PALHEIRO (Needle in a Haystack) (10 perguntas):**
+    *   **Objetivo:** Perguntas que focam em um detalhe muito específico, "escondido" ou de nicho dentro do documento, testando a precisão da busca.
+    *   **Exemplos:** "Qual é a penalidade específica mencionada no Artigo X, inciso Y?", "Qual o valor exato do auxílio-alimentação citado na seção Z?".
+
+5.  **DEPENDENTE DE HISTÓRICO (10 pares de perguntas):**
+    *   **Objetivo:** Criar um par de perguntas onde a segunda pergunta (Q2) depende diretamente do contexto da primeira (Q1), usando pronomes ou termos como "nele", "nesse caso", "e sobre isso?".
+    *   **Formato da Pergunta:** A pergunta deve ser formatada como uma string única contendo "Q1:" e "Q2:".
+    *   **Exemplo de como formatar a pergunta:** "Q1: Qual portaria regulamenta o teletrabalho? Q2: E quais são as metas de produtividade mencionadas nela?".
+
+# FORMATO DA SAÍDA
+Sua resposta final deve ser **APENAS um array JSON válido**. Não inclua nenhuma introdução, texto explicativo ou comentários fora do JSON. Cada objeto no array deve seguir rigorosamente a seguinte estrutura:
+
+{{
+  "category": "NOME_DA_CATEGORIA",
+  "question": "TEXTO_DA_PERGUNTA",
+  "ground_truth_answer": "A_RESPOSTA_COMPLETA_E_IDEAL_BASEADA_NO_TEXTO",
+  "evidence_quote": "A_CITAÇÃO_EXATA_DO_DOCUMENTO_QUE_COMPROVA_A_RESPOSTA"
+  "source": "FONTE_DO_DOCUMENTO"
+}}
+
+[DOCUMENTO]
+{documento_combinado}
+
+5.
