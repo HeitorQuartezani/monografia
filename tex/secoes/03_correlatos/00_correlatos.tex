@@ -1,0 +1,40 @@
+\section{Trabalhos Relacionados}
+
+A rápida evolução da arquitetura RAG estimulou uma vasta produção acadêmica focada na engenharia de seus componentes e na aplicação em domínios de alta precisão. A literatura recente evidencia uma lacuna entre estudos empíricos de melhores práticas e a validação estatística rigorosa dessas configurações em línguas e domínios específicos.
+
+No contexto global de otimização, \citet{wang2024} conduziram uma investigação extensiva sobre a sensibilidade dos sistemas RAG a escolhas de \textit{design} e analisaram empiricamente o impacto de estratégias de segmentação e recuperação. Embora estabeleçam diretrizes valiosas para domínios gerais, a análise baseia-se majoritariamente em estudos de ablação, ou remoção de componentes, e observação direta de métricas, sem a aplicação de um formalismo como o DoE para quantificar interações complexas entre fatores. Nosso trabalho preenche essa lacuna metodológica ao aplicar o método ART para validar estatisticamente essas práticas.
+
+A granularidade da informação recuperada é outro ponto crítico. \citet{thepowerofchunking} demonstraram que a estratégia de \textit{chunking} afeta drasticamente a coerência semântica e sugerem que quebras baseadas em significado superam cortes recursivos simples. Estendemos essa investigação ao testar essa hipótese em textos jurídicos brasileiros, caracterizados por sentenças longas e vocabulário arcaico, um cenário onde a preservação do contexto é ainda mais desafiadora do que nos \textit{corpora} de língua inglesa tipicamente avaliados.
+
+Quanto à aplicação em domínios sensíveis, \citet{healthcare_rag} consolidaram o uso de RAG na área da saúde e evidenciaram sua capacidade de reduzir alucinações em contextos críticos. No cenário nacional, \citet{aquino2024} iniciaram a exploração de RAG em documentos jurídicos brasileiros com foco na arquitetura de extração de informações. Contudo, este estudo anterior priorizou a viabilidade técnica e a validação qualitativa. A presente pesquisa avança ao focar na otimização quantitativa dos parâmetros de recuperação e utiliza o paradigma \textit{LLM-as-a-Judge} para auditar a fidelidade do sistema frente a um acervo legislativo não estruturado.
+
+Por fim, no que tange às técnicas de refinamento de busca, propostas recentes como o RankRAG \citep{rankrag} utilizam modelos neurais avançados, os \textit{Cross-Encoders}, para reordenar documentos. Embora eficazes, esses modelos introduzem latência significativa na inferência. Em contraste, nossa pesquisa investiga a eficácia do algoritmo RRF como uma alternativa computacionalmente eficiente para fundir buscas vetoriais e lexicais, buscando um equilíbrio entre precisão e custo computacional viável para instituições públicas.
+
+Predominam na literatura abordagens empíricas carentes de rigor estatístico. Especificamente no domínio jurídico nacional, os trabalhos priorizam a implementação arquitetural em detrimento da otimização paramétrica, conforme sintetizado na Tabela \ref{tab:comparativo_lacunas}.
+
+\begin{table}[ht!]
+  \centering
+  \caption{Síntese das lacunas e contribuições da pesquisa.}
+  \label{tab:comparativo_lacunas}
+  \small % Fonte small costuma ser suficiente com booktabs, se precisar reduza para \footnotesize
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    \textbf{Estudo} & \textbf{Lacuna / Abordagem} & \textbf{Solução Proposta} \\ \midrule
+
+    \citet{wang2024} &
+    Empirismo e ablação sem validação formal. &
+    Uso de \textbf{DoE} e \textbf{ART} para inferência. \\ \addlinespace
+
+    \citet{aquino2024} &
+    Foco arquitetural e validação qualitativa. &
+    Otimização \textbf{quantitativa} via \textit{Ragas}. \\ \addlinespace
+
+    \citet{thepowerofchunking} &
+    Testes focados na língua inglesa. &
+    \textit{Chunking} semântico para \textbf{Jurídico PT-BR}. \\ \addlinespace
+
+    \citet{rankrag} &
+    Re-ranking neural de alta latência. &
+    Uso de \textbf{RRF} (alternativa estatística). \\ \bottomrule
+  \end{tabular}
+\end{table}

@@ -1,0 +1,78 @@
+\subsection{Análise Inferencial e Teste de Hipóteses}
+
+Para validar estatisticamente as diferenças observadas, aplicou-se o teste ART, ajustando-se modelos para mensurar o impacto dos efeitos principais sobre as métricas de qualidade. A Tabela \ref{tab:anova_transposta} apresenta o sumário dos resultados transpostos, facilitando a visualização da influência de cada fator experimental através das diferentes métricas.
+
+\begin{table}[!ht]
+  \centering
+  \caption{Sumário da ANOVA (ART): Efeitos dos Fatores por Métrica.}
+  \label{tab:anova_transposta}
+  \small
+  \begin{tabular}{lccccc}
+    \toprule
+    \textbf{Fator} & \textbf{Recall} & \textbf{Precision} & \textbf{Faithful.} & \textbf{Relevancy} & \textbf{Correct.} \\ \midrule
+    Chunking & 92,44*** & 72,32*** & 9,22*** & 2,23\textsuperscript{ns} & 35,06*** \\
+    Busca    & 20,88*** & 61,48*** & 12,51*** & 3,87* & 18,97*** \\
+    Top-K    & 33,81*** & 47,21*** & 7,75*** & 3,68* & 15,98*** \\
+    Modelo   & 0,19\textsuperscript{ns} & 38,44*** & 0,17\textsuperscript{ns} & 18,62*** & 5,45* \\ \bottomrule
+    \multicolumn{6}{l}{\scriptsize Legenda: Valores $F$. *** $p < ,001$; * $p < ,05$; \textsuperscript{ns} não sig.}
+  \end{tabular}
+\end{table}
+
+A análise revela que o fator \textbf{Chunking} exerce a maior influência sobre as métricas de recuperação e a corretude global, enquanto o \textbf{Modelo} impacta predominantemente a precisão e a relevância das respostas geradas. Esse comportamento confirma que o ajuste fino dos hiperparâmetros de infraestrutura (segmentação e busca) é tão crítico quanto a escolha do modelo gerador para a eficácia do \textit{pipeline}.
+
+\subsubsection{Decomposição dos Efeitos (\textit{Post-hoc})}
+
+Para identificar as diferenças pontuais entre os níveis dos fatores significativos na ANOVA, realizaram-se contrastes par-a-par com correção de Bonferroni. As tabelas a seguir apresentam a razão $t$ (\textit{t-ratio}) para as comparações de interesse.
+
+\begin{table}[!ht]
+  \centering
+  \caption{Contrastes de \textit{Chunking} (Referência: \textit{Semantic P95}).}
+  \label{tab:posthoc_chunking}
+  \small
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    \textbf{Contraste} & \textbf{Recall} & \textbf{Precision} & \textbf{Faithfulness} & \textbf{Correctness} \\ \midrule
+    Recursive 500 $-$ P95  & $-16,59$*** & $-7,10$*** & $-9,41$*** & $-9,54$*** \\
+    Recursive 1000 $-$ P95 & $-7,40$*** & $+3,36$** & $+0,02$\textsuperscript{ns} & $-1,80$\textsuperscript{ns} \\
+    Semantic P75 $-$ P95   & $-8,63$*** & $-9,41$*** & $-4,41$*** & $-2,79$* \\ \bottomrule
+    \multicolumn{5}{l}{\footnotesize Legenda: Razão $t$. *** $p < ,001$; ** $p < ,01$; * $p < ,05$; \textsuperscript{ns} não sig.}
+  \end{tabular}
+\end{table}
+
+O contraste da Tabela \ref{tab:posthoc_chunking} utiliza a estratégia \textit{Semantic P95} como referência por ter apresentado o maior \textit{Recall} médio. Os resultados confirmam que a fragmentação excessiva (\textit{Recursive 500}) degrada severamente todas as métricas. Nota-se um \textit{trade-off} relevante: a estratégia \textit{Recursive 1000} supera a referência em precisão ($t = 3,36$), mas falha em manter a mesma capacidade de recuperação ($t = -7,40$).
+
+\begin{table}[ht!]
+  \centering
+  \caption{Contrastes entre Algoritmos de Busca (Razão $t$).}
+  \label{tab:posthoc_search}
+  \small
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    \textbf{Contraste} & \textbf{Recall} & \textbf{Precision} & \textbf{Faithfulness} & \textbf{Correctness} \\ \midrule
+    Híbrida $-$ Textual  & 6,19*** & 10,08*** & 4,41*** & 6,05*** \\
+    Híbrida $-$ Vetorial & 4,71*** & 1,05\textsuperscript{ns} & 4,25*** & 2,06\textsuperscript{ns} \\
+    Vetorial $-$ Textual & 1,49\textsuperscript{ns} & 9,05*** & 0,17\textsuperscript{ns} & 4,01*** \\ \bottomrule
+    \multicolumn{5}{l}{\footnotesize Legenda: *** $p < ,001$; * $p < ,05$; \textsuperscript{ns} não sig.}
+  \end{tabular}
+\end{table}
+
+Os contrastes da Tabela \ref{tab:posthoc_search} evidenciam a superioridade da \textbf{Híbrida}. Ela se mostrou estatisticamente superior à busca puramente vetorial nas métricas de suporte (\textit{Recall} e \textit{Faithfulness}), embora a diferença na corretude final ($p > 0,05$) sugira que a fusão de \textit{rankings} atua mais na robustez da evidência do que na qualidade gramatical da resposta.
+
+
+\begin{table}[ht!]
+  \centering
+  \caption{Contrastes de Volume de Contexto (Referência: $K=20$).}
+  \label{tab:posthoc_topk}
+  \small
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Contraste} & \textbf{Recall} & \textbf{Precision} & \textbf{Correctness} \\ \midrule
+    $K=5$ $-$ $K=20$  & $-9,81$*** & $-11,80$*** & $-6,56$*** \\
+    $K=10$ $-$ $K=20$ & $-4,10$*** & $-7,17$*** & $-2,14$\textsuperscript{ns} \\
+    $K=15$ $-$ $K=20$ & $-3,01$* & $-6,91$*** & $-1,50$\textsuperscript{ns} \\ \bottomrule
+    \multicolumn{4}{l}{\footnotesize Legenda: Razão $t$. *** $p < ,001$; * $p < ,05$; \textsuperscript{ns} não sig.}
+  \end{tabular}
+\end{table}
+
+
+A análise da janela de contexto (Tabela \ref{tab:posthoc_topk}) revela que o benefício de aumentar o $K$ é mais acentuado na etapa de recuperação. O nível $K=20$ superou estatisticamente o $K=15$ em \textit{Recall}, mas não gerou um incremento significativo na \textit{Correctness}, indicando um platô de utilidade para o modelo gerador a partir de 15 fragmentos.

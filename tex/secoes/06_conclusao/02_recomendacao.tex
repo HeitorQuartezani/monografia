@@ -1,0 +1,10 @@
+\subsection{Recomendação Arquitetural para o MPES}
+
+Com base na síntese dos experimentos, recomenda-se a seguinte configuração de referência, que maximiza a qualidade técnica e a eficiência de custos para o assistente jurídico:
+
+\begin{itemize}
+    \item \textbf{Ingestão:} Segmentação Semântica (Percentil 95) ou Recursiva (1000 tokens), priorizando blocos que preservem a integridade dos artigos de lei.
+    \item \textbf{Busca:} Híbrida (Vetorial + BM25) com fusão por RRF, essencial para garantir alta revocação.
+    \item \textbf{Contexto:} Janela de 20 documentos ($Top-K = 20$), pois não houve degradação por ruído e houve ganho de precisão.
+    \item \textbf{Modelo:} GPT-4o-mini, dada sua superioridade em relevância e custo operacional significativamente menor.
+\end{itemize}

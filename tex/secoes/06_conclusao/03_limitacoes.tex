@@ -1,0 +1,13 @@
+\subsection{Limitações e Trabalhos Futuros}
+
+Apesar do rigor metodológico, este estudo apresenta limitações inerentes ao seu desenho experimental. Uma restrição é a fixação de parâmetros de geração (como a temperatura em $T = 0.1$ e o \textit{prompt} estático), uma decisão de escopo do trabalho, mas que impediu a análise de como a "criatividade" estocástica ou técnicas de engenharia de instrução poderiam refinar a resposta final. A avaliação dependente de um Juiz LLM, embora validada na literatura, também introduz potenciais vieses intrínsecos ao modelo avaliador.
+
+Para superar essas barreiras e avançar no estado da arte, sugerem-se as seguintes linhas de investigação futura:
+
+\begin{itemize}
+  \item \textbf{Expansão do Espaço de Hiperparâmetros:} Aplicar o DoE para investigar a influência da Temperatura e de variações na Engenharia de \textit{Prompt} (ex: \textit{Chain-of-Thought}), tratando-os como fatores experimentais e não apenas como constantes de controle.
+  \item \textbf{Pré-processamento de Consultas:} Implementar e testar módulos de tratamento da pergunta do usuário antes da etapa de busca, utilizando técnicas de \textit{Query Rewriting} ou expansão de consulta para mitigar o desalinhamento vocabular e melhorar a recuperação.
+  \item \textbf{Comparativo com LLM Puro:} Realizar um estudo de base (\textit{baseline}) que contraste o desempenho do sistema RAG otimizado contra o uso direto de modelos (GPT-4o) sem acesso a contexto externo. Isso permitirá quantificar o ganho real de especificidade jurídica e a redução percentual de alucinações que o RAG proporciona ao MPES.
+  \item \textbf{Refinamento de Recuperação:} Explorar técnicas de \textit{Re-ranking} neural com \textit{Cross-Encoders} para reordenar a lista de documentos recuperados, buscando um compromisso entre a precisão adicional e a latência de inferência.
+  \item \textbf{Validação Humana:} Conduzir testes qualitativos com promotores e servidores do MPES para aferir a utilidade percebida da ferramenta e a fluidez da interação em cenários reais de trabalho.
+\end{itemize}

@@ -1,0 +1,28 @@
+\subsection{Análise Estatística dos Dados}
+
+O conjunto de dados consolidado, composto pelos \textit{scores} das métricas para as 3.840 unidades experimentais, foi exportado para o ambiente estatístico R versão 4.3. Dada a natureza das métricas de RAG — limitadas ao intervalo $[0, 1]$ e com distribuições inerentemente assimétricas — a análise fundamentou-se no método \textit{Aligned Rank Transform} (ART).
+
+\subsubsection{Análise Descritiva e Exploratória}
+
+Previamente à modelagem inferencial, realizou-se uma análise estatística descritiva para caracterizar o comportamento das métricas em cada nível dos fatores. Esta etapa incluiu o cálculo de medidas de tendência central (média e mediana) e de dispersão (desvio padrão e erro padrão), além da construção de diagramas de caixa (\textit{boxplots}). Essa exploração visual é indispensável para identificar padrões preliminares, detectar \textit{outliers} e compreender a variabilidade dos \textit{scores} antes da transformação por postos.
+
+\subsubsection{Especificação do Modelo Aditivo Aplicado}
+
+A investigação das fontes de variação sobre o desempenho do sistema foi conduzida através de um modelo de efeitos principais fixos, assumindo a aditividade dos fatores. Utilizando o pacote \texttt{ARTool}, ajustou-se o seguinte modelo linear para cada métrica de resposta ($Y$):
+
+\begin{equation}
+  Y_{ijklr} = \mu + \text{S}_{i} + \text{B}_{j} + \text{K}_{k} + \text{M}_{l} + \epsilon_{ijklr}
+\end{equation}
+
+\noindent onde os termos representam os componentes do experimento:
+\begin{itemize}
+  \item $Y_{ijklr}$ é o escore da métrica observado na $r$-ésima repetição;
+  \item $\mu$ é a média global do experimento;
+  \item $\text{S}_{i}$ representa o efeito principal da Estratégia de Segmentação ($i=1, \dots, 4$);
+  \item $\text{B}_{j}$ representa o efeito principal do Algoritmo de Busca ($j=1, \dots, 3$);
+  \item $\text{K}_{k}$ representa o efeito principal do Volume de Contexto Top-$k$ ($k=1, \dots, 4$);
+  \item $\text{M}_{l}$ representa o efeito principal do Modelo Gerador LLM ($l=1, 2$);
+  \item $\epsilon_{ijklr}$ é o erro aleatório experimental.
+\end{itemize}
+
+A validação de hipóteses seguiu um fluxo hierárquico: avaliou-se a significância dos efeitos via tabela ANOVA do ART, seguida de contrastes \textit{post-hoc} para os fatores significativos. Aplicou-se a correção de Bonferroni ($p_{ajustado}$) para controlar a taxa de erro familiar decorrente das múltiplas comparações, garantindo a robustez das inferências sobre qual configuração de sistema RAG é estatisticamente superior.

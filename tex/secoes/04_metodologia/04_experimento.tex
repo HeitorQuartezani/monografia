@@ -1,0 +1,30 @@
+\subsection{Procedimentos de Execução e Coleta de Dados}
+
+Para assegurar a validade interna e o isolamento dos fatores, o experimento foi executado em um fluxo estritamente controlado. O pipeline de execução, detalhado na Figura \ref{fig:rag_experimental_pipeline}, ilustra o percurso sistemático de cada consulta do \textit{Golden Set} através dos módulos de recuperação híbrida, fusão de \textit{rankings} e inferência final.
+
+\begin{figure}[ht]
+  \centering
+  \includesvg[width=1\columnwidth]{figuras/rag}
+  \caption{Pipeline de execução experimental do sistema RAG.}
+  \label{fig:rag_experimental_pipeline}
+\end{figure}
+
+\subsubsection{Controle de Variáveis}
+
+A fim de neutralizar variáveis de confusão, a temperatura dos modelos geradores foi fixada em $T = 0.1$ e utilizou-se um único \textit{System Prompt} padronizado (Apêndice B) com restrições negativas contra alucinações.
+
+\subsubsection{Fluxo de Inferência}
+
+Conforme o esquema detalhado na Figura \ref{fig:rag_experimental_pipeline}, a execução experimental ocorreu em duas fases sequenciais e interdependentes:
+
+\paragraph{Fase 1: Recuperação (\textit{Retrieval})}
+Esta fase inicia-se no Banco de Perguntas, onde cada consulta é direcionada ao módulo de Busca. O sistema opera em três frentes paralelas: a similaridade de cosseno sobre o \textit{ChromaDB} (Busca Vetorial), o algoritmo BM25 (Busca Lexical) ou a integração de ambos via \textit{Reciprocal Rank Fusion} (RRF). O resultado desta etapa é a consolidação de um Banco de Contexto contendo os documentos recuperados com maior relevância estatística.
+
+\paragraph{Fase 2: Geração (\textit{Generation})}
+O módulo de geração consome os dados do Banco de Contexto sob um critério de seleção determinística (\textit{Top-k}), simulando janelas de contexto com $\{5, 10, 15, 20\}$ fragmentos.  Os textos selecionados são injetados nos modelos \texttt{gpt-4o} ou \texttt{gpt-4o-mini}, conforme o tratamento experimental. A resposta gerada é então persistida em um Banco de Respostas tabular (CSV) para análise posterior.
+
+\subsubsection{Protocolo de Avaliação (\textit{LLM-as-a-Judge})}
+
+Com o \textit{dataset} de inferências concluído, procedeu-se à mensuração utilizando o \textit{framework Ragas}. Instanciou-se um juiz sintético (\texttt{gpt-4o}, $T=0$) para garantir determinismo absoluto na avaliação.
+
+O avaliador consumiu exclusivamente o contexto efetivamente injetado no \textit{prompt} após a etapa de fatiamento do \textit{Top-k}, assegurando que as métricas de fidelidade e precisão refletissem com exatidão a relação entre o insumo recuperado e o produto final gerado para cada uma das 3.840 unidades experimentais.

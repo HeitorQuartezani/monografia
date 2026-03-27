@@ -1,0 +1,107 @@
+\subsection{Avaliação Automatizada e Métricas}
+
+Para superar as limitações das métricas tradicionais baseadas em sobreposição de caracteres (n-gramas), como BLEU \citep{papineni-etal-2002-bleu} e ROUGE \citep{lin-2004-rouge}, este trabalho adota o paradigma \textit{LLM-as-a-Judge} \citep{zheng2023} utilizando o \textit{framework} de Avalição de Geração Aumentada por Recuperação (Retrieval Augmented Generation Assessment - Ragas) \citep{ragas2023}. A avaliação combina métricas sem referência (\textit{reference-free}), fundamentadas teoricamente por \citet{es2023}, e métricas baseadas em referência (\textit{ground truth}), implementadas conforme a documentação técnica da biblioteca \citep{ragasdocs}.
+
+O processo avaliativo é dividido estruturalmente: inicia-se com a criação da base de validação e desdobra-se em cinco métricas principais, sendo duas focadas na etapa de recuperação, duas na etapa de geração e uma métrica de qualidade global da resposta.
+
+\subsubsection{Geração Sintética do Conjunto de Teste}
+
+A avaliação rigorosa e o posterior DoE de um sistema RAG exigem um conjunto de teste robusto. Este conjunto deve ser composto por triplas contendo: a consulta do usuário ($q$), o contexto de referência documentado ($c$) e a resposta ideal esperada ($a$), comumente referida como gabrito ou \textit{Ground Truth}.
+
+Em domínios especializados e extensos como o jurídico, a anotação manual dessas triplas por especialistas do domínio é financeiramente e temporalmente proibitiva. Para contornar esse gargalo metodológico, a literatura contemporânea legitima a Geração Sintética de Dados orientada por LLM.
+
+Nesta abordagem, utiliza-se um LLM de fronteira (estado da arte) com a diretriz estrita de atuar como um gerador de dados. O algoritmo fornece fragmentos do \textit{corpus} normativo ao modelo e o instrui a formular perguntas realistas baseadas exclusivamente naquele trecho, extraindo a resposta correspondente. Este procedimento garante a criação de um gabarito escalável, com diversidade linguística controlada e 100\% lastreado no acervo oficial. Uma vez estabelecido este padrão ouro sintético, torna-se possível aplicar as métricas de avaliação automatizada.
+
+\subsubsection{Precisão do Contexto (\textit{Context Precision})}
+
+Com o gabarito sintético estabelecido, o primeiro passo da avaliação concentra-se na qualidade do ordenamento (\textit{ranking}) realizado pelo módulo de recuperação. Diferente de métricas estáticas que apenas verificam a presença da informação na lista final, a \textit{Context Precision} mensura se os documentos mais relevantes foram priorizados no topo. Isso é crítico para o desempenho de LLMs devido ao viés de primazia \citep{liu2023lostmiddlelanguagemodels}.
+
+Conforme a definição formal do \textit{Ragas}, o \textit{score} é calculado através da média da precisão em $k$ ponderada pela relevância posicional:
+
+\begin{equation}
+  Precision@K = \frac{\sum_{k=1}^{K} (P_k \cdot v_k)}{\sum_{k=1}^{K} v_k},
+\end{equation}
+\noindent onde:
+\begin{itemize}
+  \item $P_k$: é a precisão calculada até a posição $k$;
+  \item $v_k$: é o indicador binário de relevância na posição $k$ ($1$ se relevante, $0$ caso contrário);
+  \item $\sum v_k$: representa o número total de documentos relevantes identificados dentro da janela $K$.
+\end{itemize}
+
+Valores próximos de 1 indicam que a informação útil foi apresentada nas primeiras posições, minimizando a injeção de ruído logo no início do \textit{prompt}.
+
+\subsubsection{Revocação do Contexto (\textit{Context Recall})}
+
+Enquanto a Precisão foca na ordenação, é imperativo garantir que nenhuma informação vital foi deixada para trás. A métrica de \textit{Context Recall} avalia a extensão em que o contexto recuperado ($C$) alinha-se com o gabarito sintético ($G$).
+
+O algoritmo de cálculo utiliza o LLM atuando como juiz (\textit{LLM-as-a-Judge}) para realizar uma auditoria sentença a sentença:
+
+\begin{enumerate}
+  \item \textbf{Decomposição:} O gabarito oficial ($G$) é fragmentado em uma lista de sentenças ou afirmações atômicas individuais.
+  \item \textbf{Verificação de Atribuição:} Para cada sentença $s_i$ do gabarito, o modelo verifica se ela pode ser atribuída ou deduzida a partir do contexto recuperado ($C$).
+\end{enumerate}
+
+O \textit{score} final é a razão entre as sentenças do gabarito que são suportadas pelo contexto e o total de sentenças do gabarito:
+
+\begin{equation}
+  Recall = \frac{|\{s \in G \mid C \text{ suporta } s\}|}{|G|}.
+\end{equation}
+
+Valores baixos nesta métrica indicam que o sistema de recuperação falhou em trazer o quadro completo, obrigando o modelo gerador a preencher as lacunas com seu conhecimento paramétrico interno, o que eleva o risco de alucinação.
+
+\subsubsection{Fidelidade (\textit{Faithfulness})}
+
+Uma vez validada a etapa de recuperação, a avaliação volta-se para o texto final produzido pelo LLM. O risco primário a ser mitigado na geração jurídica é a invenção de fatos. A métrica de \textit{Faithfulness} mensura a consistência estrita da resposta gerada em relação ao contexto recuperado.
+
+O cálculo é realizado em duas etapas sequenciais:
+
+\begin{enumerate}
+  \item \textbf{Geração de Afirmações:} A resposta gerada ($A$) é decomposta em um conjunto de afirmações atômicas ($S = \{s_1, s_2, \dots, s_n\}$).
+  \item \textbf{Verificação de Suporte:} O juiz automatizado verifica, para cada $s_i$, se a afirmação pode ser inferida lógica e exclusivamente a partir do contexto ($C$).
+\end{enumerate}
+
+O \textit{score} é a razão entre o número de afirmações suportadas ($|V|$) e o total de afirmações extraídas ($|S|$):
+
+\begin{equation}
+  Faithfulness = \frac{|V|}{|S|}.
+\end{equation}
+
+\subsubsection{Relevância da Resposta (\textit{Answer Relevancy})}
+
+Embora a Fidelidade garanta que o modelo não inventou fatos, ela não garante a utilidade da interação. Uma resposta pode ser fiel ao texto base, mas completamente evasiva em relação ao que o usuário perguntou. A métrica de \textit{Answer Relevancy} resolve isso ao avaliar a pertinência direta da resposta.
+
+Sendo uma métrica \textit{reference-free}, ela opera sob a premissa geométrica de que, se uma resposta for perfeitamente relevante, deve ser possível aplicar engenharia reversa para adivinhar a pergunta original. O cálculo segue três etapas:
+
+\begin{enumerate}
+  \item \textbf{Geração de Perguntas Artificiais:} Um LLM analisa a resposta gerada e cria um conjunto de $N=3$ (padrão do Ragas) perguntas prováveis ($Q_{g_i}$) que poderiam ter motivado aquele texto.
+  \item \textbf{\textit{Embeddings}:} Converte-se a pergunta original do usuário ($Q_o$) e as artificiais ($Q_{g_i}$) em vetores no espaço latente.
+  \item \textbf{Cálculo de Similaridade:} Calcula-se a similaridade de cosseno entre o vetor da pergunta original ($E_o$) e os vetores gerados ($E_{g_i}$).
+\end{enumerate}
+
+A pontuação final é a média aritmética dessas similaridades:
+
+\begin{equation}
+  Relevancy = \frac{1}{N} \sum_{i=1}^{N} \cos(E_{g_i}, E_o).
+\end{equation}
+
+Valores próximos a zero penalizam severamente o sistema por saídas genéricas, tangenciais ou redundantes.
+
+\subsubsection{Corretude da Resposta (\textit{Answer Correctness})}
+
+Por fim, para consolidar a avaliação de toda a arquitetura, a métrica global de \textit{Answer Correctness} compara o produto final ($A$) diretamente com o gabarito sintético ($G$).
+
+O \textit{framework} emprega uma abordagem híbrida, combinando semântica e factualidade:
+
+\begin{enumerate}
+  \item \textbf{Corretude Factual:} O LLM decompõe a resposta e o gabarito em afirmações, classificando-as em Verdadeiros Positivos (TP - presentes em ambos), Falsos Positivos (FP - alucinações da resposta) e Falsos Negativos (FN - omissões da resposta). O \textit{score} deriva de um \textit{F1-Score} modificado:
+    \begin{equation}
+      Score_{factual} = \frac{TP}{TP + 0.5 \times (FP + FN)}
+    \end{equation}
+  \item \textbf{Similaridade Semântica:} Calcula-se a similaridade de cosseno entre os vetores da resposta gerada e do gabarito ($Score_{semantic}$), servindo como um fator de amortecimento que reconhece o significado global mesmo havendo variações de vocabulário.
+\end{enumerate}
+
+O \textit{score} final de corretude é a média ponderada desses dois componentes. Tipicamente, o \textit{framework} atribui maior peso ($0.75$) à precisão factual em detrimento da similaridade vetorial ($0.25$), resultando na equação:
+
+\begin{equation}
+  Answer\_Correctness = 0.75 \times Score_{factual} + 0.25 \times Score_{semantic}
+\end{equation}

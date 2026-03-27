@@ -1,0 +1,32 @@
+\subsection{Delineamento Experimental}
+
+Para investigar sistematicamente o espaço de hiperparâmetros do sistema, adotou-se um Delineamento Fatorial Completo cruzado. Esta abordagem permite avaliar não apenas os efeitos principais de cada componente do RAG, mas também as interações de ordem superior entre eles. O experimento foi estruturado a partir de quatro fatores independentes, cujos níveis estão sumarizados na Tabela \ref{tab:fatores_experimento}.
+
+\begin{table}[!htb]
+  \centering
+  \caption{Fatores e níveis do delineamento fatorial completo.}
+  \label{tab:fatores_experimento}
+  \begin{tabular}{@{}llc@{}}
+    \toprule
+    \textbf{Fator} & \textbf{Níveis} & \textbf{Total de Níveis} \\ \midrule
+    \multirow{4}{*}{Segmentação (\textit{Chunking})} & Recursivo Fino (500 carac., 100 \textit{overlap}) & \multirow{4}{*}{4} \\
+    & Recursivo Médio (1000 carac., 200 \textit{overlap}) &  \\
+    & Semântico Percentil 75 ($P_{75}$) &  \\
+    & Semântico Percentil 95 ($P_{95}$) &  \\ \midrule
+    \multirow{3}{*}{Algoritmo de Busca (\textit{Retrieval})} & Vetorial (Densa via Cosseno) & \multirow{3}{*}{3} \\
+    & Lexical (Esparsa via BM25) &  \\
+    & Híbrida (Fusão via RRF) &  \\ \midrule
+    \multirow{4}{*}{Volume de Contexto (Top-$k$)} & $k = 5$ & \multirow{4}{*}{4} \\
+    & $k = 10$ &  \\
+    & $k = 15$ &  \\
+    & $k = 20$ &  \\ \midrule
+    \multirow{2}{*}{Modelo Gerador (LLM)} & \texttt{gpt-4o} & \multirow{2}{*}{2} \\
+    & \texttt{gpt-4o-mini} &  \\ \bottomrule
+  \end{tabular}
+\end{table}
+
+O arranjo fatorial completo, caracterizado pelo cruzamento de todos os níveis descritos, resulta em um espaço experimental de $4 \times 3 \times 4 \times 2 = 96$ configurações únicas de sistema (tratamentos).
+
+\subsubsection{Unidade Experimental e Variáveis de Resposta}
+
+A unidade experimental base para este estudo é a consulta individual. O experimento utilizou um \textit{Golden Set} composto por $N=40$ perguntas inéditas, atuando como réplicas verdadeiras para cada tratamento. Consequentemente, o delineamento produziu um total de $96 \times 40 = 3.840$ observações independentes. As variáveis de resposta coletadas para cada observação correspondem às cinco métricas de qualidade automatizadas calculadas pelo \textit{framework Ragas}: \textit{Context Precision}, \textit{Context Recall}, \textit{Faithfulness}, \textit{Answer Relevancy} e \textit{Answer Correctness}.

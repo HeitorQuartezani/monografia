@@ -1,0 +1,229 @@
+\documentclass[a4paper, 10pt]{article}
+
+% --- PACOTES DE IDIOMA E FONTE ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+% --- PACOTES DE ESTRUTURA E LAYOUT ---
+\usepackage[margin=2cm]{geometry} % Margens mais adequadas para artigo genérico
+\usepackage{authblk} % Para formatar autores e afiliações
+\usepackage{indentfirst} % Indenta o primeiro parágrafo
+\usepackage{titlesec} % Melhor controle de títulos
+\usepackage{svg}
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathreplacing}
+\setsvg{inkscapeformat=pdf, inkscapelatex=false}
+
+% --- PACOTES DO USUÁRIO ---
+\usepackage{tabularray}
+\usepackage{afterpage}
+\usepackage{url}
+\usepackage{pifont}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{booktabs} 
+\usepackage{orcidlink} 
+\usepackage{fontawesome5} 
+
+% --- CITAÇÕES E BIBLIOGRAFIA ---
+
+\usepackage[square,sort,comma,authoryear]{natbib}
+
+% --- PACOTES PARA CAIXAS E CÓDIGO ---
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Definição de cores (Mantidas do original)
+\definecolor{engtitle}{rgb}{0.5,0.5,0.5}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.0}
+\definecolor{backg}{RGB}{245,245,245}
+\definecolor{frameg}{RGB}{200,200,200}
+\definecolor{strcolor}{RGB}{0,100,0}
+\definecolor{keycolor}{RGB}{0,0,150}
+
+% Configuração de links
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=darkblue,
+  urlcolor=darkblue,
+  anchorcolor=darkblue,
+  citecolor=darkblue
+}
+
+% --- CONFIGURAÇÃO DE ESTILOS ---
+
+% Configuração do estilo JSON para o Listings
+\lstdefinelanguage{json}{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  showstringspaces=false,
+  string=[s]{"}{"},
+  stringstyle=\color{strcolor},
+  comment=[l]{:},
+  commentstyle=\color{black},
+  literate=
+  *{0}{{{\color{blue}0}}}{1}
+  {1}{{{\color{blue}1}}}{1}
+  {2}{{{\color{blue}2}}}{1}
+  {3}{{{\color{blue}3}}}{1}
+  {4}{{{\color{blue}4}}}{1}
+  {5}{{{\color{blue}5}}}{1}
+  {6}{{{\color{blue}6}}}{1}
+  {7}{{{\color{blue}7}}}{1}
+  {8}{{{\color{blue}8}}}{1}
+  {9}{{{\color{blue}9}}}{1}
+  {:}{{{\color{black}{:}}}}{1}
+  {,}{{{\color{black}{,}}}}{1}
+  {\{}{{{\color{black}{\{}}}}{1}
+  {\}}{{{\color{black}{\}}}}}{1}
+  {[}{{{\color{black}{[}}}}{1}
+  {]}{{{\color{black}{]}}}}{1},
+}
+
+\newtcolorbox{promptbox}[1]{
+  enhanced,
+  title={#1},
+  colframe=black!70,
+  colback=backg,
+  coltitle=white,
+  fonttitle=\bfseries\sffamily,
+  boxrule=0.5mm,
+  arc=2mm,
+  left=2mm, right=2mm, top=2mm, bottom=2mm,
+  sharp corners=south,
+  drop fuzzy shadow
+}
+
+% 2. Caixa para CÓDIGO JSON
+\newtcblisting{jsonbox}[1]{
+  enhanced,
+  title={#1},
+  colframe=blue!50!black,
+  colback=white,
+  coltitle=white,
+  fonttitle=\bfseries\sffamily,
+  listing only,
+  listing options={language=json},
+  boxrule=0.5mm,
+  arc=2mm,
+  drop fuzzy shadow
+}
+
+% --- DADOS DO ARTIGO ---
+
+\title{\textbf{Análise de Hiperparâmetros em Sistemas de Geração Aumentada por Recuperação Aplicado ao Acervo do Ministério Público do Estado do Espírito Santo} \\
+\Large\textit{\textcolor{engtitle}{Hyperparameter Analysis in Retrieval-Augmented Generation Systems Applied to Ministério Público do Estado do Espírito Santo Corpus}}}
+
+% Configuração de Autores via authblk
+\author[1]{Heitor Coitinho Quartezani}
+\author[1]{Diego Roberto Colombo Dias}
+
+\affil[1]{Departamento de Estatística -- Universidade Federal do Espírito Santo (UFES)}
+\date{2025}
+
+\begin{document}
+
+\maketitle
+
+% --- RESUMOS ---
+\begin{abstract}
+  Este trabalho de pesquisa propõe uma metodologia fundamentada em Planejamento de Experimentos (\textit{Design of Experiments}) para analisar e otimizar os hiperparâmetros de um sistema de \textit{Retrieval-Augmented Generation} aplicado ao acervo normativo do Ministério Público do Estado do Espírito Santo. O objetivo central é, entre os fatores críticos, como a estratégia de segmentação de documentos (\textit{chunking}), o volume de contexto recuperado ($k$) e a escolha do \textit{Large Language Model} utilizado, identificar aqueles que apresentam impacto estatisticamente significativo na qualidade das respostas geradas. A avaliação utiliza o paradigma \textit{LLM-as-a-Judge} com o suporte do \textit{framework} de Avaliação de Geração Aumentada por Recuperação (\textit{Retrieval Augmented Generation Assessment}). Devido à natureza não-paramétrica dos dados, a análise estatística é conduzida via Transformação de Postos Alinhados (\textit{Aligned Rank Transform}). Os resultados revelam que os hiperparâmetros têm impacto significativo na qualidade da resposta.
+
+  \vspace{0.5em}
+
+  \noindent\textbf{Palavras-chave:} Geração Aumentada por Recuperação (RAG), Desenho de Experimentos (DoE), Otimização de Hiperparâmetros, \textit{Large Language Model} (LLM), \textit{Aligned Rank Transform} (ART), Ragas, MPES, LLM-as-a-Judge.
+
+  \vspace{1em}
+  \hrule
+  \vspace{1em}
+
+  \noindent\textbf{Abstract.} This research paper proposes a methodology based on \textit{Design of Experiments} to analyze and optimize the hyperparameters of a \textit{Retrieval-Augmented Generation} system applied to the normative corpus of the Ministério Público do Estado do Espírito Santo. The central objective is to identify which critical factors, such as the document segmentation strategy (\textit{chunking}), the volume of retrieved context ($k$), and the choice of the \textit{Large Language Model}, have a statistically significant impact on the quality of the generated responses. The evaluation employs the \textit{LLM-as-a-Judge} paradigm supported by the \textit{Retrieval Augmented Generation Assessment} framework. Due to the non-parametric nature of the data, the statistical analysis is conducted via the \textit{Aligned Rank Transform}. The results reveal that the hyperparameters have a significant impact on the responses' quality.
+
+  \vspace{0.5em}
+
+  \noindent\textbf{Keywords:} Retrieval-Augmented Generation (RAG), Design of Experiments (DoE), Hyperparameter Optimization, Large Language Model (LLM), Aligned Rank Transform (ART), Ragas, MPES, LLM-as-a-Judge.
+\end{abstract}
+
+% --- CORPO DO ARTIGO ---
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{secoes/01_introducao/00_introducao}
+\input{secoes/01_introducao/01_objetivos}
+\input{secoes/01_introducao/02_justificativa}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{secoes/02_fundamentacao/00_fundamentacao}
+\input{secoes/02_fundamentacao/01_embeddings}
+\input{secoes/02_fundamentacao/02_llm}
+\input{secoes/02_fundamentacao/03_segmentacao}
+\input{secoes/02_fundamentacao/04_recuperacao}
+\input{secoes/02_fundamentacao/05_avaliacao}
+\input{secoes/02_fundamentacao/06_modelagem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{secoes/03_correlatos/00_correlatos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{secoes/04_metodologia/00_metodologia}
+\input{secoes/04_metodologia/01_delineamento}
+\input{secoes/04_metodologia/02_infraestrutura}
+\input{secoes/04_metodologia/03_gabarito}
+\input{secoes/04_metodologia/04_experimento}
+\input{secoes/04_metodologia/05_analise}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{secoes/05_resultados/00_resultados}
+\input{secoes/05_resultados/01_descritiva}
+\input{secoes/05_resultados/02_inferencia}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{secoes/06_conclusao/00_conclusao}
+\input{secoes/06_conclusao/01_objetivos}
+\input{secoes/06_conclusao/02_recomendacao}
+\input{secoes/06_conclusao/03_limitacoes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- DECLARAÇÕES FINAIS ---
+
+\section*{Declarações}
+
+\subsection*{Contribuições dos Autores}
+HCQ contribuiu com a concepção do estudo, desenvolvimento do software e escrita. DRCD contribuiu com a orientação metodológica e revisão.
+
+\subsection*{Conflito de Interesses}
+Os autores declaram que não têm nenhum conflito de interesses.
+
+\subsection*{Disponibilidade de Dados}
+Os dados e códigos criados neste estudo serão disponibilizados mediante solicitação.
+
+\subsection*{Uso de Ferramentas de IA}
+Em conformidade com as diretrizes de integridade acadêmica, declara-se que ferramentas de IA Generativa (especificamente a família de modelos \textit{GPT-4}) foram empregadas como componentes estruturais e de suporte a esta pesquisa em quatro frentes principais:
+
+\begin{itemize}
+  \item \textbf{Geração de Dados Sintéticos:} Utilizou-se o modelo \textit{GPT-4o} para a construção do \textit{Golden Set}, gerando perguntas e respostas ideais a partir de documentos reais do MPES para garantir a diversidade do conjunto de teste.
+  \item \textbf{Motor de Inferência RAG:} Os modelos atuaram como agentes geradores do pipeline RAG, sintetizando respostas jurídicas submetidas ao experimento fatorial.
+  \item \textbf{Avaliação Automatizada (\textit{LLM-as-a-Judge}):} O framework \textit{Ragas} empregou o modelo \textit{GPT-4o} como juiz para o cálculo das métricas de fidelidade, relevância e corretude \citep{es2023}.
+  \item \textbf{Assistência à Pesquisa e Redação:} Ferramentas de IA foram utilizadas no suporte à revisão bibliográfica, auxílio na estruturação de strings de busca para bases científicas, revisão gramatical e refinamento estilístico de trechos do texto final.
+\end{itemize}
+
+Ressalta-se que o uso de tais ferramentas serviu como suporte técnico e analítico, permanecendo a responsabilidade pela interpretação dos dados, validade das fontes citadas e redação intelectual final integralmente a cargo dos autores.
+
+% --- BIBLIOGRAFIA ---
+\bibliographystyle{apalike}
+\bibliography{refs}
+
+\clearpage
+\onecolumn
+\input{secoes/07_apendices/00_apendices}
+
+\end{document}

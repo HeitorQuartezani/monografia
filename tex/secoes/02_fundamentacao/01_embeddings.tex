@@ -1,0 +1,57 @@
+\subsection{Representação Vetorial de Texto}
+\label{sec:embeddings}
+
+Para que modelos estatísticos processem linguagem natural, é necessário converter dados simbólicos (texto) em representações numéricas operáveis. Este processo ocorre em duas etapas fundamentais: a discretização do texto em \textit{tokens} e a subsequente projeção destas unidades em um espaço vetorial contínuo (\textit{embeddings}).
+
+\subsubsection{Tokenização}
+
+A tokenização é o processo determinístico de segmentação de uma sequência de caracteres em unidades semânticas mínimas. Formalmente, dado um corpus $C$, constrói-se um vocabulário $V$ finito onde cada \textit{token} único $t$ é mapeado para um índice inteiro $i \in \{1, \dots, |V|\}$. Em arquiteturas modernas, prioriza-se a tokenização por subpalavras (\textit{Subword Tokenization}), que equilibra a granularidade entre caracteres individuais e palavras inteiras. Essa abordagem permite que o modelo componha representações para termos raros ou neologismos através da aglutinação de morfemas conhecidos \citep{vaswani2017, jurafsky2024}. Para a gestão eficiente e em larga escala desses dicionários, empregam-se algoritmos de codificação como o \textit{Byte Pair Encoding} (BPE), frequentemente implementados em bibliotecas de alta performance como o \texttt{tiktoken} \citep{openai2023tiktoken}.
+
+\subsubsection{Embeddings e Espaço Latente}
+
+A simples indexação numérica de \textit{tokens} é insuficiente para capturar propriedades e relações semânticas. Para superar essa limitação, utiliza-se o conceito de \textit{Word Embeddings}, que consiste em representar cada termo como um vetor denso $v \in \mathbb{R}^d$ em um espaço latente de alta dimensionalidade (tipicamente com $d$ variando entre 768 e 4096). Essa representação \citep{bengio2003, openai2024embeddings} fundamenta-se na Hipótese Distribucional de \citet{harris1954}, a qual postula que palavras ocorrentes em contextos similares tendem a possuir significados análogos.
+
+Em termos geométricos, o treinamento de um LLM consiste em ajustar essas representações de modo que a proximidade espacial entre dois vetores reflita diretamente a sua similaridade de cosseno.  Conforme ilustrado de forma didática na Figura \ref{fig:espaco_vetorial}, termos do domínio jurídico, como ``Furto'' e ``Subtração'', agrupam-se em uma região do espaço e distanciam-se estruturalmente de conceitos pertencentes a outros domínios, como o culinário.
+
+\begin{figure}[!htb]
+  \centering
+  \begin{tikzpicture}[scale=1.2, >=stealth]
+    % Configuração do Grid e Eixos
+    \draw[step=0.5cm, gray!10, very thin] (-0.5,-0.5) grid (5.5, 4.5);
+    \draw[->, gray!60, thick] (0,0) -- (5.2,0) node[right, black] {\scriptsize Dimensão $X$};
+    \draw[->, gray!60, thick] (0,0) -- (0,4.2) node[above, black] {\scriptsize Dimensão $Y$};
+
+    % --- Cluster A: Jurídico (Contexto MPES) ---
+    \fill[blue!5, rotate around={-20:(3.5,3.0)}] (3.5,3.0) ellipse (1.2cm and 0.8cm);
+    \draw[blue!20, dashed, thick, rotate around={-20:(3.5,3.0)}] (3.5,3.0) ellipse (1.2cm and 0.8cm);
+
+    % Pontos e Labels
+    \fill[blue!80!black] (3.8, 3.2) circle (2pt) node[above right, font=\footnotesize] {Furto};
+    \fill[blue!80!black] (3.3, 2.9) circle (2pt) node[below left, font=\footnotesize] {Subtração};
+    \fill[blue!60!black] (4.0, 2.5) circle (2pt) node[below right, font=\footnotesize] {Dolo};
+
+    \node[blue!80!black, font=\bfseries\tiny, align=center] at (3.5, 3.8) {Contexto\\Jurídico};
+
+    % --- Cluster B: Culinário (Distante) ---
+    \fill[red!5, rotate around={45:(1.5,1.5)}] (1.5,1.5) ellipse (1.0cm and 0.6cm);
+    \draw[red!20, dashed, thick, rotate around={45:(1.5,1.5)}] (1.5,1.5) ellipse (1.0cm and 0.6cm);
+
+    \fill[red!80!black] (1.5, 1.5) circle (2pt) node[right, font=\footnotesize] {Receita};
+    \fill[red!80!black] (1.2, 1.2) circle (2pt) node[left, font=\footnotesize] {Bolo};
+
+    \node[red!80!black, font=\bfseries\tiny] at (0.8, 2.0) {Contexto Culinário};
+
+    \draw[->, blue!30, thin, dashed] (0,0) -- (3.3, 2.9);
+    \node[blue!40, font=\tiny, rotate=40] at (1.8, 1.6) {Vetor $\vec{v}_{\text{subtra\c{c}\~{a}o}}$};
+  \end{tikzpicture}
+  \caption{Representação simplificada de um espaço vetorial em $\mathbb{R}^2$.}
+  \label{fig:espaco_vetorial}
+\end{figure}
+
+\subsubsection{Similaridade de Cosseno}
+
+Para quantificar a proximidade entre dois vetores nesse espaço latente e, consequentemente, avaliar sua afinidade semântica, estabelece-se uma métrica de distância vetorial \citep{manning2008}. Em sistemas de processamento de linguagem natural e recuperação de informação, a métrica amplamente adotada é a similaridade de cosseno. Diferentemente da distância Euclidiana ($L_2$), que mensura a magnitude absoluta entre os pontos e pode ser distorcida pela extensão do texto (gerando vetores muito longos), a similaridade de cosseno avalia estritamente a orientação angular entre dois vetores não nulos $u$ e $v$. Matematicamente, ela é definida pelo produto interno dos vetores normalizados, garantindo que textos de tamanhos diferentes, mas com o mesmo direcionamento temático, sejam identificados como similares:
+
+\begin{equation}
+  sim(u, v) = \frac{u \cdot v}{\|u\| \|v\|} = \frac{\sum_{i=1}^{d} u_i v_i}{\sqrt{\sum_{i=1}^{d} u_i^2} \sqrt{\sum_{i=1}^{d} v_i^2}}.
+\end{equation}

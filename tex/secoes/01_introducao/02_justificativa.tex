@@ -1,0 +1,7 @@
+\subsection{Justificativa}
+
+A escolha da arquitetura RAG fundamenta-se nas limitações intrínsecas das abordagens alternativas para o domínio jurídico. Sistemas de busca puramente lexicais (baseados em palavras-chave) falham em capturar a semântica de consultas complexas, onde o usuário busca pelo conceito da norma e não necessariamente pelos termos exatos contidos no texto. Por outro lado, o uso isolado de LLMs seria inviável devido à impossibilidade de retreinamento contínuo com dados privados e, principalmente, ao risco inaceitável de alucinações. O RAG mitiga esses problemas ao ancorar a geração de texto em evidências recuperadas diretamente do acervo do MPES, garantindo rastreabilidade e precisão factual.
+
+Cientificamente, este trabalho justifica-se pela aplicação do DoE no contexto de sistemas RAG. Enquanto a maioria das implementações comerciais ajusta hiperparâmetros de maneira empírica ou via tentativa e erro, esta pesquisa oferece uma validação quantitativa rigorosa. A utilização do DoE permite isolar quais fatores possuem impacto estatisticamente significativo na qualidade da resposta, substituindo o empirismo por evidência estatística \citep{montgomery2017, wang2024}.
+
+Institucionalmente, o trabalho justifica-se por transformar um acervo documental estático e inacessível em uma ferramenta dinâmica de suporte à decisão.

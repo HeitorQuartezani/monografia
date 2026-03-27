@@ -1,0 +1,62 @@
+\subsection{Recuperação de Informação}
+
+A arquitetura RAG depende intrinsecamente da capacidade de recuperar um subconjunto de documentos $Z \subset D$ que seja semanticamente relevante para a consulta do usuário $q$. A eficácia da resposta final do LLM é limitada superiormente pela qualidade desses documentos recuperados, refletindo o princípio Entra Lixo, Sai Lixo (\textit{Garbage In, Garbage Out}) \citep{zhao2025thinkingcrowdauxiliaryinformation}. Para maximizar essa qualidade, este trabalho avalia e combina dois paradigmas distintos de recuperação: a busca vetorial densa e a busca lexical esparsa.
+
+\subsubsection{Recuperação Vetorial (Busca Densa)}
+
+Conforme estabelecido na Seção \ref{sec:embeddings}, a representação vetorial mapeia o texto para um espaço contínuo onde a proximidade angular reflete a similaridade de significado. Na etapa de recuperação, a consulta original do usuário $q$ é processada pelo mesmo modelo de \textit{embedding} utilizado na indexação do corpus, sendo projetada como um vetor denso $\vec{q}$ no exato mesmo espaço latente dos documentos.
+
+O processo de recuperação consiste fundamentalmente em um problema de ranqueamento (\textit{ranking}). O algoritmo de busca compara o vetor da consulta $\vec{q}$ contra o vetor de cada documento ou \textit{chunk} $\vec{d_i} \in D$ indexado no banco de dados. O grau de relevância de cada trecho de texto é quantificado calculando-se a Similaridade de Cosseno entre $\vec{q}$ e $\vec{d_i}$.  Os documentos são então ordenados de forma decrescente com base nesse escore geométrico, e o sistema retorna o subconjunto dos \textit{Top-}$k$ resultados mais semanticamente próximos à consulta.
+
+A grande vantagem desta abordagem é a sua capacidade inerente de capturar sinonímia e abstrações conceituais de forma contínua. O sistema consegue, por exemplo, atribuir um alto escore de ranqueamento a um documento que discorra sobre ``sanção'' a partir de uma consulta que utilize exclusivamente o termo ``pena'', pois o treinamento do modelo garante que ambos os conceitos habitem a mesma vizinhança semântica.
+
+Contudo, por condensar toda a semântica de um texto longo em uma representação densa de tamanho fixo, essa técnica frequentemente sofre com a diluição da importância de termos muito específicos. Como o vetor é uma composição contextual ponderada, o modelo tende a falhar na recuperação de correspondências exatas de palavras-chave raras, numerações de incisos ou identificadores únicos \citep{manning2008}, exigindo a introdução de um mecanismo complementar de busca exata para mitigar essas perdas.
+
+\subsubsection{Recuperação Lexical Probabilística (Sparse Retrieval)}
+
+Para suprir a deficiência vetorial em capturar termos exatos cruciais no domínio jurídico, como o número de uma lei (``8.666'') ou o nome próprio de uma comarca, utiliza-se a recuperação lexical.
+
+A base teórica deste método é a estatística de frequência. Uma abordagem ingênua contaria apenas a Frequência do Termo ($TF$). Contudo, palavras funcionais como ``o'', ``de'' ou ``para'' são extremamente frequentes e carregam pouca informação discriminativa. Para corrigir isso, a Teoria da Informação introduz a \textit{Inverse Document Frequency} (IDF), proposta por \citet{sparckjones1972}, que penaliza termos comuns e valoriza termos raros:
+
+\begin{equation}
+  IDF(t) = \log \left( \frac{N - n(t) + 0.5}{n(t) + 0.5} \right),
+\end{equation}
+onde $N$ é o total de documentos no \textit{corpus} e $n(t)$ é o número de documentos contendo o termo $t$.
+
+O algoritmo adotado, o \textit{Okapi BM25} \citep{robertson1995}, é uma evolução robusta dessa lógica ao introduzir a saturação de frequência. Diferente da contagem simples onde a relevância cresce linearmente com a repetição da palavra, o BM25 aplica uma curva assintótica controlada pelo parâmetro $k_1$. Além disso, normaliza o \textit{score} pelo tamanho do documento ($|d|$) em relação à média do \textit{corpus} ($avgdl$) via parâmetro $b$:
+
+\begin{align}
+  \label{eq:bm25}
+  \text{Score}(d, q) &= \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t, d) \cdot (k_1 + 1)}{f(t, d) + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)}.
+\end{align}
+
+Essa formulação probabilística justifica o uso do BM25 como o componente de precisão cirúrgica do sistema. O desafio arquitetural que emerge, portanto, é como integrar os resultados ortogonais desta busca lexical com os da busca vetorial.
+
+\subsubsection{Fusão Híbrida de Rankings}
+
+A combinação das buscas Vetorial e Lexical não é trivial, pois suas distribuições de pontuação são incompatíveis. O Cosseno varia no intervalo $[-1, 1]$, enquanto o BM25 produz pontuações no intervalo $[0, \infty)$. Para unificar essas abordagens sem depender de normalizações sensíveis a \textit{outliers} e calibragens manuais de pesos, utiliza-se o algoritmo de Fusão de Rank Recíproco (RRF - \textit{Reciprocal Rank Fusion}) proposto por \citet{cormack2009}. Este método é não-paramétrico e ignora os valores absolutos dos \textit{scores}, baseando-se estritamente na posição (posto) do documento em cada lista ordenada de resultados.
+
+O \textit{score} final de um documento é dado pela soma harmônica dos inversos dos seus \textit{rankings}:
+
+\begin{equation}
+  RRFscore(d) = \sum_{j \in \mathcal{S}} \frac{1}{\eta + r_j(d)},
+\end{equation}
+onde $\mathcal{S}$ é o conjunto de sistemas (Vetorial e Lexical), $r_j(d)$ é a posição ordinal do documento $d$ no sistema $j$, e $\eta$ é uma constante de suavização definida como 60 \citep{cormack2009}. Na prática, o RRF atua como um mecanismo de consenso: penaliza documentos que aparecem no topo de apenas uma lista isolada e favorece fortemente aqueles que são classificados como relevantes por ambos os métodos simultaneamente \citep{rankrag}.
+
+
+\subsubsection{Tamanho do Contexto}
+
+Após o processamento dos algoritmos de busca e a fusão dos ranqueamentos, o sistema de recuperação produz uma lista ordenada contendo, potencialmente, milhares de fragmentos de texto. Devido às restrições arquiteturais da janela de contexto dos LLMs e aos altos custos computacionais de inferência, é inviável submeter todo esse acervo documental ao modelo gerador. Para contornar essa limitação técnica, aplica-se uma operação de truncamento na lista de resultados, selecionando apenas os $k$ documentos com as maiores pontuações de relevância. Este limite de corte é governado pelo hiperparâmetro \textit{Top-k}.
+
+A definição deste valor envolve uma análise de custo-benefício informacional crítico na arquitetura RAG, impactando diretamente o balanço entre sinal e ruído:
+
+\begin{itemize}
+  \item \textbf{Subdimensionamento (Baixo $k$):} Restringe severamente o contexto, minimizando a injeção de ruído no \textit{prompt} do LLM. No entanto, eleva substancialmente o risco de exclusão de evidências cruciais (falsos negativos), reduzindo a revocação (\textit{recall}) do sistema e privando o modelo da fundamentação necessária para gerar uma resposta correta.
+
+  \item \textbf{Superdimensionamento (Alto $k$):} Maximiza a probabilidade de incluir o fragmento exato que resolve a consulta da busca. Em contrapartida, inunda o modelo com informações periféricas. Conforme evidenciado por \citet{liu2023lost}, a inserção de contextos excessivamente longos degrada a capacidade de atenção do LLM para informações localizadas no meio do texto, um viés arquitetural diagnosticado como o fenômeno \textit{Lost in the Middle}.
+
+\end{itemize}
+
+
+
+Portanto, o hiperparâmetro Top-$k$ atua como a válvula de controle informacional primária entre o módulo de recuperação e o módulo de geração. Sua calibração busca o ponto de equilíbrio exato onde o contexto fornecido é rico o suficiente para embasar a resposta, mas conciso o bastante para não corromper os mecanismos de atenção da rede neural subjacente.

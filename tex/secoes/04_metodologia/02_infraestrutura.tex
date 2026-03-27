@@ -1,0 +1,27 @@
+\subsection{Infraestrutura e Preparação da Base Documental}
+
+A implementação computacional foi orquestrada em Python 3.11 utilizando o \textit{framework LangChain} \citep{langchain2023}. A estrutura operacional do sistema conta com uma interface de interação direta desenvolvida em \textit{Gradio} (Apêndice \ref{apendice:interface_fabi}) e um orquestrador construído em \textit{FastAPI}, cuja documentação interativa e parametrização estão detalhadas no Apêndice \ref{apendice:api}. O fluxo completo de engenharia de dados, desde a captura da legislação bruta até sua disponibilização no índice vetorial, é detalhado na Figura \ref{fig:etl_chunking_pipeline}. Este fluxo de Extração, Transformação e Carga  (\textit{Extract, Transform, Load} - ETL) compreende a coleta automatizada no portal do MPES, a higienização dos textos, o processamento em paralelo das quatro estratégias de segmentação e, por fim, a persistência dos vetores no banco de dados \textit{ChromaDB}.
+
+\begin{figure}[ht]
+  \centering
+  \includesvg[width=0.5\columnwidth]{figuras/etl}
+  \caption{Fluxograma do processo de ETL e preparação da base documental.}
+  \label{fig:etl_chunking_pipeline}
+\end{figure}
+
+\subsubsection{Extração de Dados e Sincronização}
+
+A base documental primária foi extraída do portal ``Legislação Compilada'' \cite{mpes2024} do MPES (conforme ilustrado no Apêndice \ref{apendice:portal}). O \textit{pipeline} operou via \textit{web scraping} automatizado com a biblioteca \textit{Requests} \citep{reitz2023requests}, tendo a coleta finalizada em 10 de Julho de 2025, processando todos os 2360 documentos disponíveis até a data.
+
+O algoritmo manipulou \textit{tokens} de sessão para paginação programática e implementou uma rotina de sincronização incremental. Essa rotina assegura a consistência temporal ao baixar apenas normas inéditas e realizar a remoção de documentos revogados. Após a extração, a biblioteca \textit{BeautifulSoup} foi utilizada para a higienização do conteúdo bruto, resultando em um \textit{corpus} em formato de texto plano.
+
+\subsubsection{Implementação das Estratégias de Segmentação}
+
+Em conformidade com o delineamento experimental, o \textit{corpus} foi submetido a quatro estratégias paralelas de particionamento. Para a abordagem recursiva, utilizou-se o \texttt{RecursiveCharacterTextSplitter} para gerar blocos fixos de 500 e 1000 caracteres, com sobreposições (\textit{overlaps}) de 100 e 200 caracteres, respectivamente.
+
+Já a segmentação semântica foi executada via \texttt{SemanticChunker}, que identifica pontos de corte dinâmicos baseados nos percentis $P_{75}$ e $P_{95}$ da distribuição de dissimilaridade de cosseno entre sentenças adjacentes, com limite de $8192$ \textit{tokens}, o máximo suportado pelo modelo de \textit{embedding} utilizado. Em ambas as abordagens, a biblioteca \texttt{tiktoken} foi integrada como mecanismo de controle para garantir a aderência aos limites de \textit{tokens} da API.
+
+
+\subsubsection{Vetorização e Indexação}
+
+Os fragmentos foram projetados no espaço vetorial denso através do modelo \texttt{text-embedding-3-small} \citep{openai2024embeddings}. A persistência e gestão do acervo vetorizado ocorreram no \textit{ChromaDB} \citep{chromadb2023}. A escolha deste banco de dados vetorial justifica-se por sua arquitetura otimizada para cálculos de similaridade, essencial para suportar a volumetria e a latência exigidas pelos 96 tratamentos do experimento.

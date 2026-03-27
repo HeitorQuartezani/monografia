@@ -1,0 +1,11 @@
+\subsection{Cumprimento dos Objetivos Específicos}
+
+\begin{enumerate}
+  \item \textbf{Avaliar o impacto das estratégias de Chunking:} Demonstrou-se que a granularidade é o fator de maior impacto na arquitetura ($F = 35.06$ para Corretude). Os testes confirmaram a hipótese de que fragmentos pequenos (Recursiva 500) degradam severamente o desempenho ($p < 0.001$), rompendo a unidade semântica necessária para a recuperação legal. As estratégias Semântica (Percentil 95) e Recursiva (1000) mostraram-se estatisticamente equivalentes ($p > 0.05$), indicando que tanto a segmentação por tópicos quanto o uso de janelas amplas são soluções viáveis para mitigar a perda de contexto.
+
+  \item \textbf{Comparar a eficácia dos métodos de recuperação:} A análise consolidou a Busca Híbrida (RRF) como a abordagem mais segura para o domínio jurídico. Embora a métrica de Corretude final tenha apresentado empate técnico com a busca Vetorial ($p > 0.05$), a Híbrida mostrou-se estatisticamente superior na Revocação (\textit{Recall}) e Fidelidade ($p < 0.001$). Conclui-se que o hibridismo atua como um mecanismo de "ancoragem", onde o componente léxico garante a recuperação de termos exatos da lei, prevenindo omissões críticas.
+
+  \item \textbf{Analisar o comportamento do sistema ao variar o Top-K:} Contrariando a expectativa inicial de que janelas muito grandes introduziriam ruído, os resultados mostraram que elevar $K$ para 20 maximizou tanto a Revocação (0.85) quanto a Precisão (0.94). O aumento da precisão com janelas maiores sugere que, em janelas menores ($K = 5$ ou $10$), o documento relevante sequer era recuperado; ao ampliar para $K = 20$, o documento é encontrado e corretamente posicionado no topo pelo \textit{reranker} implícito da busca híbrida.
+
+  \item \textbf{Quantificar o ganho de desempenho entre modelos:} O experimento refutou a hipótese de que modelos massivos são indispensáveis para a tarefa. O modelo GPT-4o-mini apresentou desempenho estatisticamente superior ao modelo GPT-4o na métrica de Relevância ($t = 4.31, p < 0.001$) e marginalmente superior em Corretude. Observou-se que o modelo menor tende a ser mais conciso e aderente às instruções de formatação, enquanto o modelo maior ocasionalmente produz respostas prolixas, penalizando sua pontuação.
+\end{enumerate}

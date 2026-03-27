@@ -1,0 +1,14 @@
+\subsection{Geração do Conjunto de Avaliação Sintética}
+
+Para viabilizar a análise quantitativa, construiu-se um \textit{Golden Set} padronizado utilizando a metodologia de Geração Sintética assistida por LLM (\textit{LLM-as-a-Generator}). O processo consistiu na amostragem aleatória de $N=100$ documentos do \textit{corpus} higienizado para servirem de âncora factual.
+
+Este texto base foi submetido ao modelo GPT-4o, instruído via \textit{System Prompt} (Apêndice A) a atuar como um especialista jurídico. O fluxo de geração foi condicionado para garantir uma distribuição equitativa das perguntas entre quatro categorias taxonômicas de complexidade, cada uma desenhada para testar diferentes competências do fluxo de processamento (\textit{pipeline}):
+
+\begin{itemize}
+  \item \textbf{Factual (Baixa Complexidade):} Questões de consulta direta que exigem a recuperação de um dado explícito no texto, como nomes de órgãos, datas ou prazos específicos. Testam a capacidade básica de busca léxica e densa.
+  \item \textbf{Procedimental (Média Complexidade):} Perguntas focadas no "como", exigindo que o modelo identifique e ordene etapas de um processo administrativo ou jurídico descrito na norma. Exigem que o \textit{chunking} tenha preservado a continuidade lógica das instruções.
+  \item \textbf{Síntese e Integração (Alta Complexidade):} Demandam que o modelo correlacione múltiplos parágrafos ou seções de um documento para formular uma resposta abrangente. Esta categoria testa a janela de contexto e a capacidade do LLM de resumir informações dispersas sem alucinar.
+  \item \textbf{Recuperação Fina (\textit{Agulha no Palheiro}):} Questões formuladas sobre detalhes minuciosos e isolados inseridos em documentos extensos. O objetivo é avaliar a sensibilidade do algoritmo de busca em identificar o sinal correto em meio a um volume elevado de ruído contextual (Top-$k$ alto).
+\end{itemize}
+
+O resultado final consolidou um conjunto de 40 triplas de avaliação, compostas por Pergunta, Resposta Ideal (Gabarito) e Citação de Evidência (Trecho exato da norma). Este conjunto provê a base de comparação necessária para o cálculo das métricas de desempenho e para a posterior análise estatística via método ART.

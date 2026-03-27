@@ -1,0 +1,73 @@
+\subsection{A Arquitetura Transformer}
+
+Para compreender a eficácia de um sistema de \textit{Retrieval-Augmented Generation} (RAG), é necessário primeiro mapear como o modelo de linguagem processa a informação. Toda a fundação estrutural descrita nesta subseção baseia-se no trabalho seminal de \citet{vaswani2017}, que introduziu a arquitetura \textit{Transformer}. Este modelo tornou-se a base dos LLMs ao abandonar o processamento sequencial tradicional em favor de um processamento altamente paralelo. O fluxo de dados pode ser compreendido pelas funções de seus blocos principais:
+
+\begin{figure}[!htb]
+  \centering
+  \includesvg[width=0.5\columnwidth]{figuras/transformer}
+  \caption{Arquitetura do Modelo Transformer baseada em \citet{vaswani2017}.}
+  \label{fig:transformer}
+\end{figure}
+
+\begin{enumerate}
+  \item \textbf{Vetores de Entrada, Vetores de Saída e Codificação Posicional:} O processo inicia-se convertendo \textit{tokens} em vetores contínuos. É crucial diferenciar os dois fluxos de dados que alimentam a arquitetura:
+    \begin{itemize}
+      \item \textbf{Vetores de Entrada (\textit{Inputs}):} Inseridos na base do Codificador, representam o contexto externo fornecido ao modelo (ex: o \textit{prompt} do usuário somado aos documentos recuperados pelo RAG).
+      \item \textbf{Vetores de Saída (\textit{Outputs}):} Inseridos na base do Decodificador, representam os \textit{tokens} que o próprio modelo já gerou nas etapas anteriores da resposta (deslocados à direita para manter o caráter autorregressivo).
+    \end{itemize}
+    Como o modelo não possui recorrência para rastrear a ordem das palavras, uma Codificação Posicional é somada a ambos os vetores, injetando matematicamente a posição de cada \textit{token} na sequência.
+
+  \item \textbf{O Codificador (\textit{Encoder}):} Sua função é mapear os vetores de entrada em uma representação rica em contexto. Ele processa toda a sequência simultaneamente, cruzando as informações entre todos os \textit{tokens} fornecidos para extrair a semântica global da frase antes de enviá-la ao decodificador.
+
+  \item \textbf{O Decodificador (\textit{Decoder}):} Seu papel é gerar a resposta final. Ele recebe as representações processadas pelo codificador e as cruza com os vetores de saída (o que já foi escrito). Para evitar que o modelo ``veja o futuro'' durante o treinamento, o decodificador utiliza um mascaramento que o obriga a olhar apenas para os \textit{tokens} do passado.
+
+  \item \textbf{Geração de Probabilidades (Linear e \textit{Softmax}):} A saída final do decodificador é um vetor matemático contínuo. Uma camada Linear projeta esse vetor para a exata dimensão do vocabulário da IA. Imediatamente após, a função \textit{softmax} converte esses números em uma distribuição de probabilidades. O próximo \textit{token} do texto é então amostrado a partir desta distribuição.
+\end{enumerate}
+
+\subsubsection{O Mecanismo de Atenção}
+
+A capacidade do modelo de processar os longos contextos fornecidos por um sistema RAG reside especificamente no interior do codificador e decodificador: o mecanismo de atenção.
+
+Uma função de atenção mapeia uma consulta (\textit{query}) e um conjunto de pares chave-valor (\textit{key-value}) para uma saída. Na arquitetura \textit{Transformer}, isso é implementado através da Atenção de Produto Escalar Escalado (\textit{Scaled Dot-Product Attention}):
+
+\begin{equation}
+  \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\end{equation}
+
+Nesta formulação:
+\begin{itemize}
+  \item \textbf{Consultas ($Q$) e Chaves ($K$):} O modelo calcula o produto escalar entre a matriz de consultas e a matriz de chaves. No contexto de um sistema RAG, isso atua como uma métrica de compatibilidade: o modelo avalia matematicamente o quão relevante cada palavra do contexto recuperado (chaves) é para a pergunta em processamento (consulta). O fator $\sqrt{d_k}$ escala os valores para evitar que o crescimento do produto escalar prejudique a estabilidade matemática do modelo.
+  \item \textbf{Valores ($V$) e a Função \textit{Softmax}:} Ao aplicar a função \textit{softmax} sobre essas compatibilidades, o modelo gera um vetor de pesos distributivos. A matriz de Valores ($V$), que contém o conteúdo semântico real, é então multiplicada por esses pesos.
+\end{itemize}
+
+O resultado prático dessa operação é a atribuição de um peso quase nulo às partes irrelevantes do texto, forçando a capacidade computacional a focar exclusivamente nos trechos de informação que importam. É esta filtragem dinâmica que permite ao LLM assimilar um documento externo inserido pelo RAG e sintetizar uma resposta fundamentada.
+
+\subsubsection{O LLM como Estimador de Probabilidade e a Alucinação}
+
+Com a conversão dos valores em probabilidades na camada de saída, o LLM atua fundamentalmente como um estimador de probabilidade condicional $P_\theta$ \citep{bengio2003}. O processo de geração de texto (inferência) consiste na aplicação iterativa da regra da cadeia, onde o próximo \textit{token} $w_t$ é amostrado condicionado ao histórico de contexto $C$:
+
+\begin{equation}
+  w_t \sim P(w_t | C; \theta).
+\end{equation}
+
+Neste cenário estatístico, o fenômeno da ``alucinação'' ocorre quando o modelo atribui uma alta massa de probabilidade a uma sequência de \textit{tokens} que é sintaticamente fluida, porém factualmente incorreta ou desconectada da realidade \citep{ji2023}. O sistema RAG atua exatamente na alteração do contexto $C$, injetando informações recuperadas para redistribuir as probabilidades do modelo em direção a fatos ancorados, mitigando assim a alucinação.
+
+\subsubsection{Controle de Entropia via Temperatura}
+
+A transformação final em uma distribuição de probabilidades através da função \textit{softmax} introduz um hiperparâmetro crucial: a Temperatura ($T$). Estatisticamente, a temperatura atua como um mecanismo de controle da entropia da distribuição, governando o balanço entre o determinismo e a aleatoriedade durante a amostragem.
+
+Matematicamente, a função \textit{softmax} com o parâmetro de temperatura acoplado é definida como:
+
+\begin{equation}
+  P(w_i) = \frac{\exp(z_i / T)}{\sum_{j} \exp(z_j / T)}
+\end{equation}
+
+onde $z_i$ representa a saída da camada linear (\textit{logit}) correspondente ao \textit{token} $i$ do vocabulário, e $T$ é um valor real estritamente positivo. A variação de $T$ altera o formato da distribuição:
+
+\begin{itemize}
+  \item \textbf{Baixa Temperatura ($T \to 0$):} A diferença entre os maiores \textit{logits} é amplificada exponencialmente, colapsando a distribuição em direção ao \textit{token} mais provável. O modelo torna-se conservador e quase determinístico. No escopo de um sistema RAG, esta é a configuração ideal, pois minimiza a variância estocástica e força o modelo a gerar respostas ancoradas estritamente no contexto recuperado.
+  \item \textbf{Temperatura Neutra ($T = 1$):} A equação retorna à sua forma \textit{softmax} padrão, refletindo as probabilidades originais aprendidas pela rede.
+  \item \textbf{Alta Temperatura ($T > 1$):} A distribuição é achatada, aproximando-se de uma distribuição uniforme. Isso aumenta a diversidade lexical, mas eleva significativamente a probabilidade de o modelo amostrar informações incorretas e alucinar fatos não contidos no contexto.
+\end{itemize}
+
+Desta forma, a calibração da temperatura ajusta a decodificação da linguagem às exigências de precisão e factualidade inerentes ao RAG.

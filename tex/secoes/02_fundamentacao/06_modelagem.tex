@@ -1,0 +1,61 @@
+\subsection{Planejamento de Experimentos}
+
+A otimização de arquiteturas complexas como o RAG exige a transição de abordagens de tentativa e erro para uma investigação sistemática. O DoE fornece o arcabouço estatístico necessário para modelar e analisar simultaneamente múltiplas variáveis de entrada (fatores) e quantificar seus impactos nas variáveis de saída (respostas) \citep{montgomery2017}.
+
+\subsubsection{Modelo Fatorial Completo}
+
+Para avaliar não apenas o efeito isolado de cada hiperparâmetro, mas também as sinergias e dependências entre eles, emprega-se o delineamento Fatorial Completo. Neste arranjo, os tratamentos consistem em todas as combinações possíveis dos níveis de todos os fatores em estudo.
+
+O modelo estatístico linear generalizado para um arranjo fatorial com $k$ fatores e $n$ réplicas pode ser expresso como:
+
+\begin{equation}
+  Y_{i_1 i_2 \dots i_k r} = \mu + \sum_{j=1}^{k} \tau_{j, i_j} + \sum_{j < m} (\tau\tau)_{jm, i_j i_m} + \dots + (\tau_{1\dots k})_{i_1 \dots i_k} + \epsilon_{i_1 i_2 \dots i_k r}
+\end{equation}
+
+\noindent onde:
+\begin{itemize}
+  \item $Y_{i_1 i_2 \dots i_k r}$ é a resposta observada na $r$-ésima réplica da combinação específica de níveis $(i_1, i_2, \dots, i_k)$ dos $k$ fatores;
+  \item $\mu$ é a média global teórica do experimento;
+  \item $\sum_{j=1}^{k} \tau_{j, i_j}$ representa a soma dos efeitos principais de cada um dos $k$ fatores isoladamente;
+  \item $\sum_{j < m} (\tau\tau)_{jm, i_j i_m}$ e os termos subsequentes englobam todos os efeitos de interação entre os fatores (de segunda ordem, terceira ordem, e assim sucessivamente, até a interação global de ordem $k$);
+  \item $\epsilon_{i_1 i_2 \dots i_k r}$ é o componente de erro aleatório experimental.
+\end{itemize}
+
+O teste de hipóteses clássico para avaliar a significância simultânea destes efeitos é a Análise de Variância (\textit{Analysis Of Variance} - ANOVA). Contudo, a validade de suas inferências (o valor-p derivado da distribuição $F$) depende estritamente do comportamento probabilístico do termo de erro.
+
+\subsubsection{Pressupostos da ANOVA e Limitações em Métricas de RAG}
+
+A validade estatística das inferências derivadas da ANOVA fundamenta-se na estrutura do termo de erro. A formulação exige que os resíduos do modelo ($\epsilon_{i_1 \dots i_k r}$) sejam independentes, identicamente distribuídos e sigam uma distribuição Normal com média zero e variância constante ($\sigma^2$), condição conhecida como homocedasticidade: $\epsilon \sim N(0, \sigma^2)$.
+
+Em avaliações de sistemas de recuperação de informação, as variáveis de resposta (como Precisão, Revocação e as métricas do \textit{Ragas}) apresentam desafios intrínsecos a esses pressupostos:
+\begin{itemize}
+  \item \textbf{Limites de Intervalo:} Por serem proporções ou índices limitados ao intervalo $[0, 1]$, a variância tende a ser menor nas extremidades do que no centro do intervalo, violando a homogeneidade de variâncias.
+  \item \textbf{Assimetria e Bimodalidade:} As distribuições em RAG são frequentemente enviesadas, com concentrações de \textit{scores} próximos a 1 (em sistemas otimizados) ou 0 (em falhas de recuperação).
+\end{itemize}
+Tais características invalidam o uso da ANOVA paramétrica padrão, elevando o risco de Erro Tipo I e de conclusões espúrias sobre a superioridade de uma configuração de modelo.
+
+\subsubsection{Modelagem Não-Paramétrica: O Método ART}
+
+Para viabilizar a análise fatorial em dados que violam os pressupostos clássicos, \citet{10.1145/1978942.1978963} propuseram o procedimento \textit{Aligned Rank Transform} (ART). Este método permite manter a capacidade analítica de decomposição de efeitos principais e, crucialmente, de interações, superando a limitação de testes não-paramétricos tradicionais como o de Kruskal-Wallis, que se restringem a análises unifatoriais.
+
+A transformação matemática do ART ocorre em três etapas fundamentais, executadas de forma independente para cada efeito (principal ou interação) que se deseja testar:
+
+\begin{enumerate}
+  \item \textbf{Alinhamento:} Para isolar o efeito de um fator específico (ex: fator $A$), o método remove da resposta bruta $Y$ os efeitos estimados de todos os outros fatores e interações presentes no modelo (\textit{nuisance effects}). Para o fator $A$, o valor alinhado $Y_{align}$ é calculado como:
+    \begin{equation}
+      Y_{align(A)} = Y - \left[ \hat{\mu} + \hat{\beta} + (\widehat{\tau\beta}) + \dots \right]
+    \end{equation}
+    onde os termos entre colchetes representam as estimativas de todos os efeitos, exceto o de $A$.
+
+  \item \textbf{Atribuição de Postos (\textit{Ranking}):} Os valores alinhados são convertidos em seus respectivos postos (posições em uma ordem crescente).  Esta etapa é a que confere robustez ao método, pois a análise baseada em postos neutraliza a influência de \textit{outliers} e contorna a necessidade de normalidade da distribuição original, tornando-o ideal para métricas de RAG com distribuições assimétricas.
+
+  \item \textbf{Aplicação da ANOVA:} Aplica-se a ANOVA convencional sobre os postos alinhados. Como o processo de alinhamento garantiu que a variação remanescente nos dados (além do erro) se refere especificamente ao fator testado, a estatística $F$ resultante é válida para testar a significância do efeito, permitindo inclusive testes de comparações múltiplas (\textit{post-hoc}) não-paramétricos \citep{10.1145/3472749.3474784}.
+\end{enumerate}
+
+\subsubsection{Contrastes e Controle de Erro (Pós-Hoc)}
+
+Uma vez que a ANOVA (seja clássica ou via ART) detecta significância estatística em um fator com mais de dois níveis ou em uma interação, faz-se necessário o uso de testes de múltiplos contrastes (\textit{post-hoc}) para identificar exatamente entre quais grupos reside a diferença. No caso do ART, estas comparações são realizadas utilizando as diferenças entre os Postos Médios Alinhados ($\bar{R}$) dos grupos testados \citep{10.1145/3472749.3474784}.
+
+Entretanto, a realização de múltiplos testes de hipóteses sobre o mesmo conjunto de dados inflaciona o erro do Tipo I (a probabilidade de rejeitar falsamente a hipótese nula). Se $\alpha$ é o nível de significância de um teste individual, a probabilidade de cometer pelo menos um erro Tipo I em $m$ comparações independentes cresce conforme $1 - (1-\alpha)^m$.
+
+Para restaurar o rigor estatístico global do experimento, a literatura exige a aplicação de mecanismos de penalização de \textit{p-valor}. A estratégia mais conservadora e amplamente adotada é a Correção de Bonferroni \citep{Dunn01031961}, que ajusta a probabilidade final multiplicando o \textit{p-valor} bruto pelo número de comparações realizadas ($p_{ajustado} = p \times m$), exigindo uma diferença substancialmente maior entre os postos para que a significância seja declarada.
