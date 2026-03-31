@@ -53,7 +53,7 @@ A definição deste valor envolve uma análise de custo-benefício informacional
 \begin{itemize}
   \item \textbf{Subdimensionamento (Baixo $k$):} Restringe severamente o contexto, minimizando a injeção de ruído no \textit{prompt} do LLM. No entanto, eleva substancialmente o risco de exclusão de evidências cruciais (falsos negativos), reduzindo a revocação (\textit{recall}) do sistema e privando o modelo da fundamentação necessária para gerar uma resposta correta.
 
-  \item \textbf{Superdimensionamento (Alto $k$):} Maximiza a probabilidade de incluir o fragmento exato que resolve a consulta da busca. Em contrapartida, inunda o modelo com informações periféricas. Conforme evidenciado por \citet{liu2023lost}, a inserção de contextos excessivamente longos degrada a capacidade de atenção do LLM para informações localizadas no meio do texto, um viés arquitetural diagnosticado como o fenômeno \textit{Lost in the Middle}.
+  \item \textbf{Superdimensionamento (Alto $k$):} Maximiza a probabilidade de incluir o fragmento exato que resolve a consulta da busca. Em contrapartida, inunda o modelo com informações periféricas. Conforme evidenciado por \citet{liu2023_lost}, a inserção de contextos excessivamente longos degrada a capacidade de atenção do LLM para informações localizadas no meio do texto, um viés arquitetural diagnosticado como o fenômeno \textit{Lost in the Middle}.
 
 \end{itemize}
 
